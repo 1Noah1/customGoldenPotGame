@@ -25,32 +25,54 @@ namespace customGoldenPotGame
                 Console.Clear();
                 Console.WindowHeight = Height + padding / 2;
                 Console.WindowWidth = Width + padding;
-                for (int i = 0; i < Width; i++)
+                // top
+                for (int i = 1; i < Width; i++)
                 {
                     Console.SetCursorPosition(padding / 2 + i, padding / 4);
-                    Console.Write("-");
+                    Console.Write("_");
+
                 }
-                for (int i = 0; i < Width; i++)
+                // bottom
+                for (int i = 0; i <= Width; i++)
                 {
                     Console.SetCursorPosition(padding / 2 + i, Height + padding / 4);
-                    Console.Write("-");
+                    Console.Write("_");
                 }
-                for (int i = 1; i < Height; i++)
+                // left
+                for (int i = 1; i <= Height; i++)
                 {
                     Console.SetCursorPosition(padding / 2, i + padding / 4);
                     Console.Write("|");
                 }
-                for (int i = 1; i < Height; i++)
+                // right
+                for (int i = 1; i <= Height; i++)
                 {
                     Console.SetCursorPosition(Width + padding / 2, i + padding / 4);
                     Console.Write("|");
                 }
             }
         }
+        public class Pos
+        {
+
+        }
+        public class Hero {
+
+        }
+
         static void Main(string[] args)
         {
+            bool exit = false;
             Map map = new Map();
-            map.renderMap();
+            //Hero hero = new Hero();
+            // decreased Bufferheight for performance
+            Console.BufferHeight = 50;
+            while (!exit)
+            {
+                map.renderMap();
+                //for debugging
+                Thread.Sleep(20000);     
+            }
         }
     }
 }
