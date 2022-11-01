@@ -52,24 +52,47 @@ namespace customGoldenPotGame
                 }
             }
         }
-        public class Pos
-        {
 
-        }
         public class Hero {
+            
+            int[] heroPos = new int[2];
 
+            public int x { get; set; }
+            public int y { get; set; }
+            public Hero()
+            {
+                x = 20;
+                y = 20;
+
+                heroPos[0] = x;
+                heroPos[1] = y;
+                
+
+            }
+            public void renderHero()
+            {
+            
+                    // starting point
+                    Console.SetCursorPosition(heroPos[0], heroPos[1]);
+                    // Character Symbol
+                    Console.Write("(°-°)");
+                    //Console.Write('^');
+ 
+            }
         }
 
         static void Main(string[] args)
         {
             bool exit = false;
             Map map = new Map();
+            Hero hero = new Hero();
             //Hero hero = new Hero();
             // decreased Bufferheight for performance
             Console.BufferHeight = 50;
             while (!exit)
             {
                 map.renderMap();
+                hero.renderHero();
                 //for debugging
                 Thread.Sleep(20000);     
             }
