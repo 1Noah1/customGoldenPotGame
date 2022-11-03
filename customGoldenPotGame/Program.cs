@@ -62,11 +62,12 @@ namespace customGoldenPotGame
             public int[] mainPlayablePos = new int[2];
             public int[] secondPlayablePos = new int[2];
 
+            // Use Width and height from map instead
+            public int[] boundaries = new int[4];
+
             
             public int x { get; set; }
             public int y { get; set; }
-            // second Playeable shouldn't start at the same position
-            public int secondPlayableOffset = 10;
 
             public Playables()
             {
@@ -78,29 +79,57 @@ namespace customGoldenPotGame
                 mainPlayablePos[1] = y;
 
                 secondPlayablePos[0] = x;
-                secondPlayablePos[1] = y;
+                // second Player offset is 20
+                secondPlayablePos[1] = y + 20;
 
+                //border right
+                boundaries[0] = 65;
+                //border left
+                boundaries[1] = 7;
+                //border bottom
+                boundaries[2] = 32;
+                //border top
+                boundaries[3] = 4;
 
             }
             public void initializePlayables(bool mainPlayable)
             {
+                bool outOfBounds = false;
                 if (mainPlayable)
                 {
-                    // starting point
-                    Console.SetCursorPosition(mainPlayablePos[0], mainPlayablePos[1]);
+                    // Cursor set to modified Pos
+                    if (mainPlayablePos[0] > boundaries[0] || mainPlayablePos[0] < boundaries[1])
+                    {
+                        outOfBounds = true;
+                    }
+                    if (mainPlayablePos[1] > boundaries[2] || mainPlayablePos[1] < boundaries[3])
+                    {
+                        outOfBounds = true;
 
-                    // maybe make character out of multiple lines of chars
-                    // Character Symbol
-                    // main playable
-                    Console.Write("O");
-                    //Console.Write('^');
-                    //whichPlayable();
+                    }
+                    if (!outOfBounds)
+                    {
+                        Console.SetCursorPosition(mainPlayablePos[0], mainPlayablePos[1]);
+
+                        // maybe make character out of multiple lines of chars
+                        // Character Symbol
+                        // main playable
+                        Console.Write("O");
+
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.SetCursorPosition(30, 18);
+                        Console.Write("You left the PLayground");
+                    }
+
 
                 }
                 else
                 {
-                    // starting point
-                    Console.SetCursorPosition(mainPlayablePos[0], mainPlayablePos[1] + secondPlayableOffset);
+                    // Cursor set to modified Pos
+                    Console.SetCursorPosition(secondPlayablePos[0], secondPlayablePos[1]);
 
                     // maybe make character out of multiple lines of chars
                     // Character Symbol
@@ -230,7 +259,7 @@ namespace customGoldenPotGame
                 //main Character is standard Character
                 bool mainPlayable = true;
                 bool failed = false;
-                while (failed != true)
+                while (!failed)
                 {
                     Playables.initializePlayables(mainPlayable);
                     Playables.whichPlayable();
