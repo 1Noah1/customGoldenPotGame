@@ -61,6 +61,7 @@ namespace customGoldenPotGame
             //array for saving Playables pos
             public int[] mainPlayablePos = new int[2];
             public int[] secondPlayablePos = new int[2];
+            public int[] mainPlayablePosHistory = new int[2];
 
             // Use Width and height from map instead
             public int[] boundaries = new int[4];
@@ -109,12 +110,19 @@ namespace customGoldenPotGame
                     }
                     if (!outOfBounds)
                     {
+                        // Set Cursor to next Pos 
                         Console.SetCursorPosition(mainPlayablePos[0], mainPlayablePos[1]);
-
                         // maybe make character out of multiple lines of chars
                         // Character Symbol
                         // main playable
                         Console.Write("O");
+
+                        // Set Cursor to last Pos
+                        Console.SetCursorPosition(mainPlayablePosHistory[0], mainPlayablePosHistory[1]);
+
+                        // erase line by overwriting it with empty character
+                        Console.Write(" ");
+
 
                     }
                     else
@@ -162,6 +170,9 @@ namespace customGoldenPotGame
             {
                 if (mainPlayable)
                 {
+                    mainPlayablePosHistory[0] = mainPlayablePos[0];
+                    mainPlayablePosHistory[1] = mainPlayablePos[1];
+
                     if(inputKey == 'w')
                     {
                         //up
