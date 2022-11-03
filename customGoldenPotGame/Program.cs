@@ -94,7 +94,7 @@ namespace customGoldenPotGame
                     // main playable
                     Console.Write("O");
                     //Console.Write('^');
-                    whichPlayable();
+                    //whichPlayable();
 
                 }
                 else
@@ -212,23 +212,29 @@ namespace customGoldenPotGame
 
         static void Main(string[] args)
         {
+            /*
             Menu menu = new Menu();
             menu.startMenu();
-
+            */
 
             bool exit = false;
             Map map = new Map();
             Playables Playables = new Playables();
             //Playables Playables = new Playables();
             // decreased Bufferheight for performance
+                //probably doesn't affect performace drastically
             Console.BufferHeight = 50;
             while (!exit)
             {
                 map.renderMap();
                 //main Character is standard Character
                 bool mainPlayable = true;
-                Playables.initializePlayables(mainPlayable);
-                Playables.whichPlayable();
+                bool failed = false;
+                while (failed != true)
+                {
+                    Playables.initializePlayables(mainPlayable);
+                    Playables.whichPlayable();
+                }
                 //for debugging/development
                 //Thread.Sleep(20000);     
             }
