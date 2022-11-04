@@ -13,7 +13,7 @@ namespace customGoldenPotGame
             public Map()
             {
                 // values aren't declared in renderCanvas because we need to acces these vals from other functions
-                Width = 60;
+               Width = 60;
                 Height = 30;
                 padding = 12;
 
@@ -83,6 +83,7 @@ namespace customGoldenPotGame
                 // second Player offset is 20
                 secondPlayablePos[1] = y + 20;
 
+                // maybe order these values differently (by wasd system) 
                 //border right
                 boundaries[0] = 65;
                 //border left
@@ -102,8 +103,7 @@ namespace customGoldenPotGame
                     if (mainPlayablePos[0] > boundaries[0] || mainPlayablePos[0] < boundaries[1])
                     {
                         outOfBounds = true;
-                    }
-                    if (mainPlayablePos[1] > boundaries[2] || mainPlayablePos[1] < boundaries[3])
+                    }else if (mainPlayablePos[1] > boundaries[2] || mainPlayablePos[1] < boundaries[3])
                     {
                         outOfBounds = true;
 
@@ -176,19 +176,36 @@ namespace customGoldenPotGame
                     if(inputKey == 'w')
                     {
                         //up
-                        mainPlayablePos[1]--;
+                        // check for avoiding going out of bounds
+                            // not the smartest solution but it works (optimize)
+                        // flickering appears because trail is removed while not changing position
+                            //on key hold char dissapears until you move the opposite direction
+                        if (mainPlayablePos[1] > boundaries[3]) {
+                            mainPlayablePos[1]--;
+                        }
+
                     }else if (inputKey == 'a')
                     {
                         //left
-                        mainPlayablePos[0]--;
-                    }else if (inputKey == 's')
+                        if (mainPlayablePos[0] > boundaries[1])
+                        {
+                            mainPlayablePos[0]--;
+                        }
+                    }
+                    else if (inputKey == 's')
                     {
                         //down
-                        mainPlayablePos[1]++;
+                        if (mainPlayablePos[1] < boundaries[2])
+                        {
+                            mainPlayablePos[1]++;
+                        }
                     }else if (inputKey == 'd')
                     {
-                        //right
-                        mainPlayablePos[0]++;
+                       if (mainPlayablePos[0] < boundaries[0])
+                       {
+                            //right
+                            mainPlayablePos[0]++;
+                       }
                     }
                     Thread.Sleep(100);
                     
