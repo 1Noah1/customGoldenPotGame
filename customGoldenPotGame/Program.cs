@@ -90,7 +90,7 @@ namespace customGoldenPotGame
                 //border left
                 boundaries[1] = 7;
                 //border bottom
-                boundaries[2] = 33;
+                boundaries[2] = 32;
                 //border top
                 boundaries[3] = 4;
             }
