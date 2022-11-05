@@ -30,7 +30,6 @@ namespace customGoldenPotGame
                 {
                     Console.SetCursorPosition(padding / 2 + i, padding / 4);
                     Console.Write("_");
-
                 }
                 // bottom
                 for (int i = 0; i <= Width; i++)
@@ -58,8 +57,6 @@ namespace customGoldenPotGame
 
             bool overwriteLastPos = true;
 
-
-
             // read char input properly
             ConsoleKeyInfo keyInfo = new ConsoleKeyInfo();
 
@@ -68,7 +65,6 @@ namespace customGoldenPotGame
             public int[] mainPlayablePosHistory = new int[2];
             // Use Width and height from map instead
             public int[] boundaries = new int[4];
-
 
             public int x { get; set; }
             public int y { get; set; }
@@ -106,9 +102,6 @@ namespace customGoldenPotGame
                 if (overwriteLastPos) {
                     removeTrail();
                 }
-
-
-
             }
             private void removeTrail()
             {
