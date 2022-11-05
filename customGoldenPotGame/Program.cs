@@ -13,7 +13,7 @@ namespace customGoldenPotGame
             public Map()
             {
                 // values aren't declared in renderCanvas because we need to acces these vals from other functions
-               Width = 60;
+                Width = 60;
                 Height = 30;
                 padding = 12;
 
@@ -147,96 +147,56 @@ namespace customGoldenPotGame
                 }
  
             }
-            public void whichPlayable()
-            {
-                if (Console.KeyAvailable)
-                {
-                    keyInfo = Console.ReadKey(true);
-                    char inputKey = keyInfo.KeyChar;
-                    if (inputKey == 'w' || inputKey == 'a' || inputKey == 's' || inputKey == 'd')
-                    {
-                        bool mainPlayable = true;
-                        movement(mainPlayable, inputKey);
-                    }else if (inputKey == 'p' || inputKey == 'l' || inputKey == 'ö' || inputKey == 'ä')
-                    {
-                        bool mainPlayable = false;
-                        initializePlayables(mainPlayable);
-                        movement(mainPlayable, inputKey);
 
+        
+            public void movement()
+            {
+                // gets user Input 
+                keyInfo = Console.ReadKey(true);
+                char inputKey = keyInfo.KeyChar;
+
+                // neccessary to remove trail
+                mainPlayablePosHistory[0] = mainPlayablePos[0];
+                mainPlayablePosHistory[1] = mainPlayablePos[1];
+
+                if(inputKey == 'w')
+                {
+                    //up
+                    // check for avoiding going out of bounds
+                    // not the smartest solution but it works (optimize)
+                    // flickering appears because trail is removed while not changing position
+                    //on key hold char dissapears until you move the opposite direction
+                    if (mainPlayablePos[1] > boundaries[3]) {
+                        mainPlayablePos[1]--;
+                    }
+
+                }else if (inputKey == 'a')
+                {
+                    //left
+                    if (mainPlayablePos[0] > boundaries[1])
+                    {
+                        mainPlayablePos[0]--;
                     }
                 }
-            }
-            public void movement(bool mainPlayable, char inputKey )
-            {
-                if (mainPlayable)
+                else if (inputKey == 's')
                 {
-                    mainPlayablePosHistory[0] = mainPlayablePos[0];
-                    mainPlayablePosHistory[1] = mainPlayablePos[1];
-
-                    if(inputKey == 'w')
+                    //down
+                    if (mainPlayablePos[1] < boundaries[2])
                     {
-                        //up
-                        // check for avoiding going out of bounds
-                            // not the smartest solution but it works (optimize)
-                        // flickering appears because trail is removed while not changing position
-                            //on key hold char dissapears until you move the opposite direction
-                        if (mainPlayablePos[1] > boundaries[3]) {
-                            mainPlayablePos[1]--;
-                        }
-
-                    }else if (inputKey == 'a')
-                    {
-                        //left
-                        if (mainPlayablePos[0] > boundaries[1])
-                        {
-                            mainPlayablePos[0]--;
-                        }
+                       mainPlayablePos[1]++;
                     }
-                    else if (inputKey == 's')
-                    {
-                        //down
-                        if (mainPlayablePos[1] < boundaries[2])
-                        {
-                            mainPlayablePos[1]++;
-                        }
-                    }else if (inputKey == 'd')
-                    {
-                       if (mainPlayablePos[0] < boundaries[0])
-                       {
-                            //right
-                            mainPlayablePos[0]++;
-                       }
-                    }
-                    Thread.Sleep(100);
-                    
-                }
-                else
+                }else if (inputKey == 'd')
                 {
-                    if (inputKey == 'p')
-                    {
-                        //up
-                        secondPlayablePos[1]++;
-                    }
-                    else if (inputKey == 'l')
-                    {
-                        //left
-                        secondPlayablePos[0]--;
-                    }
-                    else if (inputKey == 'ö')
-                    {
-                        //down
-                        secondPlayablePos[1]--;
-                    }
-                    else if (inputKey == 'ä')
+                    if (mainPlayablePos[0] < boundaries[0])
                     {
                         //right
-                        secondPlayablePos[0]++;
+                        mainPlayablePos[0]++;
                     }
-                    Thread.Sleep(100);
-
                 }
+                Thread.Sleep(100);       
             }
         }
+
         public class Menu
         {
             public Menu()
@@ -290,7 +250,7 @@ namespace customGoldenPotGame
                 while (!failed)
                 {
                     Playables.initializePlayables(mainPlayable);
-                    Playables.whichPlayable();
+                    Playables.movement();
                 }
                 //for debugging/development
                 //Thread.Sleep(20000);     
