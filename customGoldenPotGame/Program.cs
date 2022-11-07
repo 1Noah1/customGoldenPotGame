@@ -54,6 +54,24 @@ namespace customGoldenPotGame
                 }
             }
         }
+        public class Item
+        {
+            Random random = new();
+            public char item = 'I';
+            public int[] itemPos = new int[2];
+            public Item()
+            {
+                //x
+                itemPos[0] = random.Next(7, 65);
+                //y
+                itemPos[1] = random.Next(4, 32);
+            }
+            public void renderItem()
+            {
+                Console.SetCursorPosition(itemPos[0], itemPos[1]);
+                Console.Write(item);
+            }
+        }
 
         public class Playable
         {
@@ -184,6 +202,14 @@ namespace customGoldenPotGame
                     // character is not overwritten when unknown key is pressed
                     overwriteLastPos = false;
                 }
+            }
+        }
+
+        public class Logic
+        {
+            public Logic()
+            {
+
             }
         }
 
