@@ -198,7 +198,7 @@ namespace customGoldenPotGame
                 Thread.Sleep(1000);
                 Console.WriteLine("Your task is collecting all the Items across the map");
                 Thread.Sleep(1500);
-                Console.WriteLine("Just move to the items ({collectable.})");
+                Console.WriteLine("Just move to the items (item var)");
                 Console.WriteLine(divider);
                 Console.WriteLine("MOVEMENT:");
                 Console.WriteLine("Move the Main Character (O) with the \"wasd\" Keys");
@@ -222,9 +222,8 @@ namespace customGoldenPotGame
             */
 
             bool exit = false;
-            Map map = new Map();
-            Playable Playable = new Playable();
-            //Playable Playable = new Playable();
+            Map map = new();
+            Playable Playable = new();
             while (!exit)
             {
                 map.renderMap();
@@ -235,8 +234,6 @@ namespace customGoldenPotGame
                     Playable.initializeCharacter();
                     Playable.movement();
                 }
-                //for debugging/development
-                //Thread.Sleep(20000);     
             }
         }
     }
