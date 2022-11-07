@@ -4,17 +4,32 @@ namespace customGoldenPotGame
 {
     internal class Program
     {
+
+
+        public class GameManager
+        {
+            public static int Width { get; set; }
+            public static int Height { get; set; }
+
+            public GameManager(){
+                // values aren't declared in renderCanvas because we need to acces these vals from other functions
+                Width = 60;
+                Height = 30;
+
+
+            }
+
+
+        }
+
         public class Map
         {
-            public int Width { get; set; }
-            public int Height { get; set; }
+
             private int padding { get; set; }
 
             public  Map()
             {
-                // values aren't declared in renderCanvas because we need to acces these vals from other functions
-                Width = 60;
-                Height = 30;
+
                 padding = 12;
 
                 Console.CursorVisible = false;
@@ -26,30 +41,30 @@ namespace customGoldenPotGame
                 // decreased Bufferheight for performance
                 //probably doesn't affect performace drastically
                 Console.BufferHeight = 50;
-                Console.WindowHeight = Height + padding / 2;
-                Console.WindowWidth = Width + padding;
+                Console.WindowHeight = GameManager.Height + padding / 2;
+                Console.WindowWidth = GameManager.Width + padding;
                 // top
-                for (int i = 1; i < Width; i++)
+                for (int i = 1; i < GameManager.Width; i++)
                 {
                     Console.SetCursorPosition(padding / 2 + i, padding / 4);
                     Console.Write("_");
                 }
                 // bottom
-                for (int i = 0; i <= Width; i++)
+                for (int i = 0; i <= GameManager.Width; i++)
                 {
-                    Console.SetCursorPosition(padding / 2 + i, Height + padding / 4);
+                    Console.SetCursorPosition(padding / 2 + i, GameManager.Height + padding / 4);
                     Console.Write("_");
                 }
                 // left
-                for (int i = 1; i <= Height; i++)
+                for (int i = 1; i <= GameManager.Height; i++)
                 {
                     Console.SetCursorPosition(padding / 2, i + padding / 4);
                     Console.Write("|");
                 }
                 // right
-                for (int i = 1; i <= Height; i++)
+                for (int i = 1; i <= GameManager.Height; i++)
                 {
-                    Console.SetCursorPosition(Width + padding / 2, i + padding / 4);
+                    Console.SetCursorPosition(GameManager.Width + padding / 2, i + padding / 4);
                     Console.Write("|");
                 }
             }
@@ -103,11 +118,11 @@ namespace customGoldenPotGame
                 // maybe order these values differently (by wasd system) 
 
                 //border right
-                boundaries[0] = 65;
+                boundaries[0] = GameManager.Width + 5;
                 //border left
                 boundaries[1] = 7;
                 //border bottom
-                boundaries[2] = 32;
+                boundaries[2] = GameManager.Height + 2;
                 //border top
                 boundaries[3] = 4;
             }
@@ -206,13 +221,6 @@ namespace customGoldenPotGame
             }
         }
 
-        public class Logic
-        {
-            public Logic()
-            {
-
-            }
-        }
 
         public class Menu
         {
@@ -246,6 +254,7 @@ namespace customGoldenPotGame
             */
 
             bool exit = false;
+            GameManager gameManager = new GameManager();
             Map map = new();
             Player Player = new();
             while (!exit)
