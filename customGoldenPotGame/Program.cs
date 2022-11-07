@@ -10,7 +10,7 @@ namespace customGoldenPotGame
             public int Height { get; set; }
             private int padding { get; set; }
 
-            public Map()
+            public  Map()
             {
                 // values aren't declared in renderCanvas because we need to acces these vals from other functions
                 Width = 60;
@@ -101,6 +101,7 @@ namespace customGoldenPotGame
                 // these values should not have individual ints
                 // they should just reference the Widht and Height vars from the Map class
                 // maybe order these values differently (by wasd system) 
+
                 //border right
                 boundaries[0] = 65;
                 //border left
