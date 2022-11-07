@@ -23,6 +23,9 @@ namespace customGoldenPotGame
             public void renderMap()
             {
                 Console.Clear();
+                // decreased Bufferheight for performance
+                //probably doesn't affect performace drastically
+                Console.BufferHeight = 50;
                 Console.WindowHeight = Height + padding / 2;
                 Console.WindowWidth = Width + padding;
                 // top
@@ -182,7 +185,6 @@ namespace customGoldenPotGame
                     // character is not overwritten when unknown key is pressed
                     overwriteLastPos = false;
                 }
-
             }
         }
 
@@ -223,9 +225,6 @@ namespace customGoldenPotGame
             Map map = new Map();
             Playable Playable = new Playable();
             //Playable Playable = new Playable();
-            // decreased Bufferheight for performance
-            //probably doesn't affect performace drastically
-            Console.BufferHeight = 50;
             while (!exit)
             {
                 map.renderMap();
