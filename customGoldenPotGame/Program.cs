@@ -73,30 +73,30 @@ namespace customGoldenPotGame
             }
         }
 
-        public class Playable
+        public class Player
         {
             bool overwriteLastPos = true;
 
             // read char input properly
             ConsoleKeyInfo keyInfo = new ConsoleKeyInfo();
 
-            //array for saving Playable pos
-            public int[] mainPlayablePos = new int[2];
-            public int[] mainPlayablePosHistory = new int[2];
+            //array for saving Player pos
+            public int[] mainPlayerPos = new int[2];
+            public int[] mainPlayerPosHistory = new int[2];
             // Use Width and height from map instead
             public int[] boundaries = new int[4];
 
             public int x { get; set; }
             public int y { get; set; }
 
-            public Playable()
+            public Player()
             {
-                // main Playable start Pos
+                // main Player start Pos
                 x = 30;
                 y = 18;
 
-                mainPlayablePos[0] = x;
-                mainPlayablePos[1] = y;
+                mainPlayerPos[0] = x;
+                mainPlayerPos[1] = y;
 
                 // these values should not have individual ints
                 // they should just reference the Widht and Height vars from the Map class
@@ -114,7 +114,7 @@ namespace customGoldenPotGame
             public void initializeCharacter()
             {
                 // Set Cursor to next Pos 
-                Console.SetCursorPosition(mainPlayablePos[0], mainPlayablePos[1]);
+                Console.SetCursorPosition(mainPlayerPos[0], mainPlayerPos[1]);
                 // maybe make character out of multiple lines of chars
                 // Character Symbol
                 // the @ character causes weird bug to appear idk why
@@ -127,7 +127,7 @@ namespace customGoldenPotGame
             private void removeTrail()
             {
                 // Set Cursor to last Pos
-                Console.SetCursorPosition(mainPlayablePosHistory[0], mainPlayablePosHistory[1]);
+                Console.SetCursorPosition(mainPlayerPosHistory[0], mainPlayerPosHistory[1]);
 
                 // erase line by overwriting it with empty character
                 Console.Write(" ");
@@ -140,8 +140,8 @@ namespace customGoldenPotGame
                 char inputKey = keyInfo.KeyChar;
 
                 // neccessary to remove trail
-                mainPlayablePosHistory[0] = mainPlayablePos[0];
-                mainPlayablePosHistory[1] = mainPlayablePos[1];
+                mainPlayerPosHistory[0] = mainPlayerPos[0];
+                mainPlayerPosHistory[1] = mainPlayerPos[1];
                 if (inputKey == 'w')
                 {
                     //up
@@ -149,9 +149,9 @@ namespace customGoldenPotGame
                     // not the smartest solution but it works (optimize)
                     // flickering appears because trail is removed while not changing position
                     //on key hold char dissapears until you move the opposite direction
-                    if (mainPlayablePos[1] > boundaries[3])
+                    if (mainPlayerPos[1] > boundaries[3])
                     {
-                        mainPlayablePos[1]--;
+                        mainPlayerPos[1]--;
                         overwriteLastPos = true;
                     }
                     else
@@ -162,9 +162,9 @@ namespace customGoldenPotGame
                 else if (inputKey == 'a')
                 {
                     //left
-                    if (mainPlayablePos[0] > boundaries[1])
+                    if (mainPlayerPos[0] > boundaries[1])
                     {
-                        mainPlayablePos[0]--;
+                        mainPlayerPos[0]--;
                         overwriteLastPos = true;
                     }
                     else
@@ -175,9 +175,9 @@ namespace customGoldenPotGame
                 else if (inputKey == 's')
                 {
                     //down
-                    if (mainPlayablePos[1] < boundaries[2])
+                    if (mainPlayerPos[1] < boundaries[2])
                     {
-                        mainPlayablePos[1]++;
+                        mainPlayerPos[1]++;
                         overwriteLastPos = true;
                     }
                     else
@@ -188,9 +188,9 @@ namespace customGoldenPotGame
                 else if (inputKey == 'd')
                 {
                     //right
-                    if (mainPlayablePos[0] < boundaries[0])
+                    if (mainPlayerPos[0] < boundaries[0])
                     {
-                        mainPlayablePos[0]++;
+                        mainPlayerPos[0]++;
                         overwriteLastPos = true;
                     }
                     else
@@ -247,7 +247,7 @@ namespace customGoldenPotGame
 
             bool exit = false;
             Map map = new();
-            Playable Playable = new();
+            Player Player = new();
             while (!exit)
             {
                 map.renderMap();
@@ -255,8 +255,8 @@ namespace customGoldenPotGame
                 bool failed = false;
                 while (!failed)
                 {
-                    Playable.initializeCharacter();
-                    Playable.movement();
+                    Player.initializeCharacter();
+                    Player.movement();
                 }
             }
         }
