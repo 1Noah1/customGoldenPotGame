@@ -57,7 +57,6 @@ namespace customGoldenPotGame
 
         public class Playable
         {
-
             bool overwriteLastPos = true;
 
             // read char input properly
@@ -190,7 +189,6 @@ namespace customGoldenPotGame
 
         public class Menu
         {
-
             public void startMenu()
             {
                 string divider = "___________________________________________________";
@@ -210,7 +208,6 @@ namespace customGoldenPotGame
                 Console.WriteLine();
                 Console.WriteLine("press any key to continue");
                 Console.ReadKey();
-
             }
         }
 
