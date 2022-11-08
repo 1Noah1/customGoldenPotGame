@@ -15,11 +15,7 @@ namespace customGoldenPotGame
                 // values aren't declared in renderCanvas because we need to acces these vals from other functions
                 Width = 60;
                 Height = 30;
-
-
             }
-
-
         }
 
         public class Map
