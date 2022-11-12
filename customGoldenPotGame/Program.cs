@@ -95,7 +95,8 @@ namespace customGoldenPotGame
             public int[] mainPlayerPos = new int[2];
             public int[] mainPlayerPosHistory = new int[2];
             // Use Width and height from map instead
-            public int[] boundaries = new int[4];
+            private int[] boundaries = new int[4];
+            private char playerCharacter = Convert.ToChar("0");
 
             public int x { get; set; }
             public int y { get; set; }
@@ -129,7 +130,7 @@ namespace customGoldenPotGame
                 // maybe make character out of multiple lines of chars
                 // Character Symbol
                 // the @ character causes weird bug to appear idk why
-                Console.Write("0");
+                Console.Write(playerCharacter);
 
                 if (overwriteLastPos) {
                     removeTrail();
