@@ -14,8 +14,8 @@ namespace customGoldenPotGame
         ConsoleKeyInfo keyInfo = new ConsoleKeyInfo();
 
         //array for saving Player pos
-        public int[] mainPlayerPos = new int[2];
-        public int[] mainPlayerPosHistory = new int[2];
+        private int[] mainPlayerPos = new int[2];
+        private int[] mainPlayerPosHistory = new int[2];
         // Use Width and height from map instead
 
         private char playerCharacter = Convert.ToChar("0");

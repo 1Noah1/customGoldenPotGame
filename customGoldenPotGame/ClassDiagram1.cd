@@ -1,35 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="customGoldenPotGame.GameManager">
-    <Position X="3" Y="0.5" Width="1.5" />
+    <Position X="3.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAIABAAAAAAAAAAAAEAIAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="customGoldenPotGame.Item">
-    <Position X="8.25" Y="1.25" Width="1.5" />
+    <Position X="5.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAgAAAAQAAAAAAAAAAAAAAAQQAAAAAAA=</HashCode>
       <FileName>Item.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="customGoldenPotGame.Map">
-    <Position X="5.25" Y="1.25" Width="1.5" />
+    <Position X="3.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
       <FileName>Map.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="customGoldenPotGame.Menu">
-    <Position X="10.25" Y="1.5" Width="1.5" />
+    <Position X="3.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Menu.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="customGoldenPotGame.Player">
-    <Position X="3" Y="3.5" Width="1.5" />
+    <Position X="1.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAEAAEAAAAAAAAAAICBAACAIAAAABgAAAAAIA=</HashCode>
       <FileName>Player.cs</FileName>
