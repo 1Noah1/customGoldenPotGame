@@ -12,8 +12,15 @@ namespace customGoldenPotGame
         public static int Width { get; set; }
         public static int Height { get; set; }
 
+        public static int[] mainPlayerPos = new int[2];
+        
+        public static int[] itemPos = new int[2];
+
+        private static int score;
+
         public GameManager()
         {
+            score = 0;
             // values aren't declared in renderCanvas because we need to acces these vals from other functions
             Width = 60;
             Height = Width / 2;
@@ -35,6 +42,17 @@ namespace customGoldenPotGame
         {
             Console.SetCursorPosition(pos[0], pos[1]);
             Console.Write(item);
+        }
+        public static void detectItem()
+        {
+            if (mainPlayerPos[0] == itemPos[0] 
+                && mainPlayerPos[1] == itemPos[1])
+            {
+                Item Item = new();
+                score++;
+                Console.SetCursorPosition(8, 0);
+                Console.Write(score);
+            }
         }
     }
 }

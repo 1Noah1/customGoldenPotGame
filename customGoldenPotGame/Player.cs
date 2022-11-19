@@ -14,7 +14,6 @@ namespace customGoldenPotGame
         ConsoleKeyInfo keyInfo = new ConsoleKeyInfo();
 
         //array for saving Player pos
-        private int[] mainPlayerPos = new int[2];
         private int[] mainPlayerPosHistory = new int[2];
         // Use Width and height from map instead
 
@@ -28,17 +27,17 @@ namespace customGoldenPotGame
         public Player()
         {
             // main Player start Pos
-            x = 30;
+            x = 36;
             y = 18;
 
-            mainPlayerPos[0] = x;
-            mainPlayerPos[1] = y;
+            GameManager.mainPlayerPos[0] = x;
+            GameManager.mainPlayerPos[1] = y;
 
 
         }
         public void movePlayerToNextPos()
         {
-            GameManager.renderCharAtPos(mainPlayerPos, playerCharacter);
+            GameManager.renderCharAtPos(GameManager.mainPlayerPos, playerCharacter);
             if (overwriteLastPos)
             {
                 GameManager.renderCharAtPos(mainPlayerPosHistory, emptyChar);
@@ -54,18 +53,17 @@ namespace customGoldenPotGame
             char inputKey = keyInfo.KeyChar;
 
             // neccessary to remove trail
-            mainPlayerPosHistory[0] = mainPlayerPos[0];
-            mainPlayerPosHistory[1] = mainPlayerPos[1];
+            mainPlayerPosHistory[0] = GameManager.mainPlayerPos[0];
+            mainPlayerPosHistory[1] = GameManager.mainPlayerPos[1];
             if (inputKey == 'w')
             {
                 //up
                 // check for avoiding going out of bounds
                 // not the smartest solution but it works (optimize)
-                // flickering appears because trail is removed while not changing position
                 //on key hold char dissapears until you move the opposite direction
-                if (mainPlayerPos[1] > GameManager.boundaries[3])
+                if (GameManager.mainPlayerPos[1] > GameManager.boundaries[3])
                 {
-                    mainPlayerPos[1]--;
+                    GameManager.mainPlayerPos[1]--;
                     overwriteLastPos = true;
                 }
                 else
@@ -76,9 +74,9 @@ namespace customGoldenPotGame
             else if (inputKey == 'a')
             {
                 //left
-                if (mainPlayerPos[0] > GameManager.boundaries[1])
+                if (GameManager.mainPlayerPos[0] > GameManager.boundaries[1])
                 {
-                    mainPlayerPos[0]--;
+                    GameManager.mainPlayerPos[0]--;
                     overwriteLastPos = true;
                 }
                 else
@@ -89,9 +87,9 @@ namespace customGoldenPotGame
             else if (inputKey == 's')
             {
                 //down
-                if (mainPlayerPos[1] < GameManager.boundaries[2])
+                if (GameManager.mainPlayerPos[1] < GameManager.boundaries[2])
                 {
-                    mainPlayerPos[1]++;
+                    GameManager.mainPlayerPos[1]++;
                     overwriteLastPos = true;
                 }
                 else
@@ -102,9 +100,9 @@ namespace customGoldenPotGame
             else if (inputKey == 'd')
             {
                 //right
-                if (mainPlayerPos[0] < GameManager.boundaries[0])
+                if (GameManager.mainPlayerPos[0] < GameManager.boundaries[0])
                 {
-                    mainPlayerPos[0]++;
+                    GameManager.mainPlayerPos[0]++;
                     overwriteLastPos = true;
                 }
                 else

@@ -16,18 +16,17 @@ namespace customGoldenPotGame
             Map map = new();
             Player Player = new();
             Item Item = new();
-            while (!exit)
-            {
+            
                 map.renderMap();
-                //main Character is standard Character
+                Item.renderItem();
                 bool failed = false;
                 while (!failed)
                 {
                     Player.movePlayerToNextPos();
                     Player.movement();
                     Item.renderItem();
+                    GameManager.detectItem();
                 }
-            }
         }
     }
 }

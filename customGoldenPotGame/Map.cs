@@ -25,6 +25,12 @@ namespace customGoldenPotGame
             // decreased Bufferheight for performance
             //probably doesn't affect performace drastically
             Console.BufferHeight = 50;
+
+            //Score
+            Console.SetCursorPosition(1, 0);
+            Console.Write("Score: 0");
+
+
             Console.WindowHeight = GameManager.Height + padding / 2;
             Console.WindowWidth = GameManager.Width + padding;
             // top
