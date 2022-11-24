@@ -10,16 +10,19 @@ namespace customGoldenPotGame
             Menu menu = new Menu();
             menu.startMenu();
             */
-
             bool exit = false;
-            GameManager gameManager = new GameManager();
+            GameManager gameManager = new();
             Map map = new();
             Player Player = new();
             Item Item = new();
             
                 map.renderMap();
-                Item.renderItem();
+                //Item.renderItem();
                 bool failed = false;
+            Maze.assets.genBoxOpTop();
+            Console.ReadKey();
+
+            /*
                 while (!failed)
                 {
                     Player.movePlayerToNextPos();
@@ -27,6 +30,7 @@ namespace customGoldenPotGame
                     Item.renderItem();
                     GameManager.detectItem();
                 }
+            */
         }
     }
 }
