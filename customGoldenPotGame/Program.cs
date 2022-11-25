@@ -17,10 +17,11 @@ namespace customGoldenPotGame
             Item Item = new();
             
                 map.renderMap();
-                Item.renderItem();
+                //Item.renderItem();
                 bool failed = false;
-            Maze.assets.renderAllBoxes();
-            
+            //Maze.assets.renderAllBoxes();
+            Maze.assets.renderAllPaths();
+
                 while (!failed)
                 {
                     Player.movePlayerToNextPos();
