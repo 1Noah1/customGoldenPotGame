@@ -12,70 +12,97 @@ namespace customGoldenPotGame
         public class assets
         {
             const char verLine = '|';
-            const char horiLine = '-';
+            const char horiLine = '_';
 
-
+            public static void renderAllBoxes()
+            {
+                genBoxOpBot();
+                genBoxOpLeft();
+                genBoxOpRight();
+                genBoxOpTop();
+                  
+            }
             //short for Box with open top
             public static void genBoxOpTop()
             {
                 // line below only for debugging
                 Console.SetCursorPosition(30, 15);
-                // y-axis, down, last var doesnt matter because its for x-axis generating only
-                genLine(true, false, false);                
-                // x-Axis, doesnt matter, left
-                genLine(false, false, false);
-                // y- Axis, up, doesn't matter
-                genLine(true, true, false);
-            }
-            //bool y asks if it is supposed to be a vertical line
-            //bool up asks if up or down, left asks for left or right
-            //Cursor Position might automatically advance to the right !!!
-            //make this more efficient
-            private static void genLine(bool y, bool up, bool right)
-            {
-                if (y)
-                {
-                    if (up) {
-                        for (int i = 0; i <= 1; i++) { 
-                            // prevents overwriting and or wrong position
-                            if (i < 1)
-                            {
 
-                                Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop - 1);
-                                Console.Write(verLine);
-                            }
-                            else {
-                                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop - 1);
-                                Console.Write(verLine);
-                            }
-                        }
-                    }
-                    else
+                drawYLine(false);
+                drawXLine(true);
+                Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop + 1);
+                drawYLine(true);
+            }
+            public static void genBoxOpRight()
+            {
+                Console.SetCursorPosition(40, 15);
+
+
+                Console.Write(horiLine);
+                drawXLine(false);
+                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                drawYLine(false);
+                drawXLine(true);
+
+            }
+
+            public static void genBoxOpLeft()
+            {
+                Console.SetCursorPosition(15,15);
+
+
+                drawXLine(true);
+                Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop + 1);
+                drawYLine(true);
+                Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop - 1);
+                Console.Write(horiLine);
+                drawXLine(false);
+            }
+
+            public static void genBoxOpBot()
+            {
+                Console.SetCursorPosition(30, 15);
+                drawYLine(true);
+                Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
+                drawXLine(true);
+                Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop);
+                drawYLine(false);
+            }
+            public static void drawXLine(bool right)
+            {
+                if (right)
+                {
+                    for (int i = 0; i < 3; i++)
                     {
-                        for (int i = 0; i <= 1; i++)
-                        {
-                            Console.Write(verLine);
-                            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + 1);
-                        }
+                        Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop);
+                        Console.Write(horiLine);
                     }
                 }
                 else
                 {
-                    if (right)
+                    for (int i = 0; i < 2; i++)
                     {
-                        for (int i = 0; i <= 4; i++)
-                        {
-                            Console.Write(horiLine);
-                            Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop);
-                        }
+                        Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
+                        Console.Write(horiLine);
                     }
-                    else
+
+                }
+            }
+            public static void drawYLine(bool above)
+            {
+                if (above) {
+                    for (int i = 0; i < 2; i++)
                     {
-                        for (int i = 0; i <= 4; i++)
-                        {
-                            Console.Write(horiLine);
-                            Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop );
-                        }
+                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop - 1);
+                        Console.Write(verLine);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + 1);
+                        Console.Write(verLine);
                     }
 
                 }

@@ -15,7 +15,7 @@ namespace customGoldenPotGame
             Thread.Sleep(1000);
             Console.WriteLine("Your task is collecting all the Items across the map");
             Thread.Sleep(1500);
-            Console.WriteLine("Just move to the items (item var)");
+            Console.WriteLine("Just move to the items (I)");
             Console.WriteLine(divider);
             Console.WriteLine("MOVEMENT:");
             Console.WriteLine("Move the Main Character (O) with the \"wasd\" Keys");

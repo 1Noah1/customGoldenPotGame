@@ -17,12 +17,10 @@ namespace customGoldenPotGame
             Item Item = new();
             
                 map.renderMap();
-                //Item.renderItem();
+                Item.renderItem();
                 bool failed = false;
-            Maze.assets.genBoxOpTop();
-            Console.ReadKey();
-
-            /*
+            Maze.assets.renderAllBoxes();
+            
                 while (!failed)
                 {
                     Player.movePlayerToNextPos();
@@ -30,7 +28,6 @@ namespace customGoldenPotGame
                     Item.renderItem();
                     GameManager.detectItem();
                 }
-            */
         }
     }
 }
