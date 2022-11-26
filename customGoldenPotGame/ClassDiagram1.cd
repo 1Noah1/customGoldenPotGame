@@ -72,7 +72,7 @@
               <NewMemberFileName>Maze.cs</NewMemberFileName>
             </TypeIdentifier>
           </Class>
-          <Class Name="customGoldenPotGame.Maze.assets.Corner" Collapsed="true">
+          <Class Name="customGoldenPotGame.Maze.assets.Corner">
             <TypeIdentifier>
               <NewMemberFileName>Maze.cs</NewMemberFileName>
             </TypeIdentifier>

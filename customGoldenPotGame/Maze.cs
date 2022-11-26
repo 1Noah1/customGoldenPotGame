@@ -102,6 +102,12 @@ namespace customGoldenPotGame
                 public static void genCorner(bool startPointingRight, bool endingPointingUp)
                 {
                     if(startPointingRight && endingPointingUp){
+  
+                    }else if (startPointingRight && !endingPointingUp)
+                    {
+
+                    }else if(!startPointingRight && endingPointingUp)
+                    {
                         Console.Write(tiltToRightLine);
                         Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + 2);
                         Console.Write(horiLine);
@@ -113,13 +119,9 @@ namespace customGoldenPotGame
                         Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop - 1);
                         Console.Write(verLine);
                         Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
-                    }else if (startPointingRight && !endingPointingUp)
-                    {
 
-                    }else if(!startPointingRight && endingPointingUp)
-                    {
-
-                    }else if(!startPointingRight && !endingPointingUp)
+                    }
+                    else if(!startPointingRight && !endingPointingUp)
                     {
 
                     }
