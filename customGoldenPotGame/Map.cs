@@ -37,25 +37,25 @@ namespace customGoldenPotGame
             for (int i = 1; i < GameManager.Width; i++)
             {
                 Console.SetCursorPosition(padding / 2 + i, padding / 4);
-                Console.Write("_");
+                Console.Write(Maze.assets.horiLine);
             }
             // bottom
             for (int i = 0; i <= GameManager.Width; i++)
             {
                 Console.SetCursorPosition(padding / 2 + i, GameManager.Height + padding / 4);
-                Console.Write("_");
+                Console.Write(Maze.assets.horiLine);
             }
             // left
             for (int i = 1; i <= GameManager.Height; i++)
             {
                 Console.SetCursorPosition(padding / 2, i + padding / 4);
-                Console.Write("|");
+                Console.Write(Maze.assets.verLine);
             }
             // right
             for (int i = 1; i <= GameManager.Height; i++)
             {
                 Console.SetCursorPosition(GameManager.Width + padding / 2, i + padding / 4);
-                Console.Write("|");
+                Console.Write(Maze.assets.verLine);
             }
         }
     }

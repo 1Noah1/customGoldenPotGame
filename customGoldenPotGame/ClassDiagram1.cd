@@ -1,49 +1,91 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="customGoldenPotGame.GameManager">
-    <Position X="10.75" Y="5.5" Width="1.5" />
+    <Position X="12" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAIABAAAAAAAAAAAAEAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAIABAAAAgAAAAAIAEAKAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="customGoldenPotGame.Item">
-    <Position X="1.75" Y="5.5" Width="1.5" />
+    <Position X="1.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAQAAAAAAAAAAAAAAAQQAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQQAAAAAAA=</HashCode>
       <FileName>Item.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="customGoldenPotGame.Map">
-    <Position X="6.25" Y="5.5" Width="1.5" />
+    <Position X="7.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
       <FileName>Map.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="customGoldenPotGame.Menu">
-    <Position X="4" Y="5.5" Width="1.5" />
+    <Position X="3.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Menu.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="customGoldenPotGame.Player">
-    <Position X="8.5" Y="5.5" Width="1.5" />
+    <Position X="9.75" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAEAAEAAAAAAAAAAICBAACAIAAAABgAAAAAIA=</HashCode>
+      <HashCode>AAAAAAAAEAAEAAAAAAAAAAIABAACAIAAAABgAAAAAIA=</HashCode>
       <FileName>Player.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="System.Object">
-    <Position X="6.5" Y="2.5" Width="1.5" />
+    <Position X="7.75" Y="2.5" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="customGoldenPotGame.Program">
-    <Position X="13" Y="5.5" Width="1.5" />
+    <Position X="14.25" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="customGoldenPotGame.Maze">
+    <Position X="5.5" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="customGoldenPotGame.Maze.assets">
+        <Compartments>
+          <Compartment Name="Nested Types" Collapsed="false" />
+        </Compartments>
+        <NestedTypes>
+          <Class Name="customGoldenPotGame.Maze.assets.Box">
+            <TypeIdentifier>
+              <NewMemberFileName>Maze.cs</NewMemberFileName>
+            </TypeIdentifier>
+          </Class>
+          <Class Name="customGoldenPotGame.Maze.assets.Lines">
+            <TypeIdentifier>
+              <NewMemberFileName>Maze.cs</NewMemberFileName>
+            </TypeIdentifier>
+          </Class>
+          <Class Name="customGoldenPotGame.Maze.assets.Path">
+            <TypeIdentifier>
+              <NewMemberFileName>Maze.cs</NewMemberFileName>
+            </TypeIdentifier>
+          </Class>
+          <Class Name="customGoldenPotGame.Maze.assets.Corner" Collapsed="true">
+            <TypeIdentifier>
+              <NewMemberFileName>Maze.cs</NewMemberFileName>
+            </TypeIdentifier>
+          </Class>
+        </NestedTypes>
+        <TypeIdentifier>
+          <NewMemberFileName>Maze.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Maze.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

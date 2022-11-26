@@ -19,8 +19,8 @@ namespace customGoldenPotGame
                 map.renderMap();
                 //Item.renderItem();
                 bool failed = false;
-            //Maze.assets.renderAllBoxes();
-            Maze.assets.renderAllPaths();
+            Maze.assets.renderAllBoxes();
+            //Maze.assets.renderAllPaths();
 
                 while (!failed)
                 {
