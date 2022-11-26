@@ -20,7 +20,7 @@ namespace customGoldenPotGame
                 //Item.renderItem();
                 bool failed = false;
             //Maze.assets.renderAllBoxes();
-            Maze.assets.renderAllPaths();
+            Maze.assets.testPathsAndCorners();
 
                 while (!failed)
                 {

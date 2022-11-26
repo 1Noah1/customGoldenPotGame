@@ -21,19 +21,30 @@ namespace customGoldenPotGame
             const char tiltToLeftLine = '\\';
 
 
-            public static void renderAllPaths()
+            public static void testPathsAndCorners()
             {
                 int pathLength = 2;
 
                 Console.SetCursorPosition(20, 15);
 
                 //setup for corner
+                // input of 2 translates to lenght of 9
                 Path.genXPathRight(pathLength);
+                // set cursor Position to beginning of genXPathRight**
+                Console.SetCursorPosition(Console.CursorLeft -  (1 + (4 * pathLength)), Console.CursorTop);
+                // position checker
+                Console.Write("*");
 
-                Corner.genCorner(false, true);
+
+                Corner.genCorner(true, true);
 
                 //Console.SetCursorPosition(Console.CursorLeft + 2, Console.CursorTop);
-                Path.genYPath(pathLength);
+                //Path.genYPath(pathLength);
+
+
+
+
+
             }
 
 
@@ -101,9 +112,23 @@ namespace customGoldenPotGame
             {
                 public static void genCorner(bool startPointingRight, bool endingPointingUp)
                 {
-                    if(startPointingRight && endingPointingUp){
-  
-                    }else if (startPointingRight && !endingPointingUp)
+                    if(startPointingRight && endingPointingUp)
+                    {
+                        Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
+                        Console.Write(tiltToLeftLine);
+                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + 2);
+                        Console.Write(horiLine);
+                        
+                        Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
+                        Console.Write(horiLine);
+                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                        Console.Write(tiltToLeftLine);
+                        Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
+                        //Console.SetCursorPosition();
+
+
+                    }
+                    else if (startPointingRight && !endingPointingUp)
                     {
 
                     }else if(!startPointingRight && endingPointingUp)
