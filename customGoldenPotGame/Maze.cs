@@ -40,11 +40,11 @@ namespace customGoldenPotGame
 
                 Console.SetCursorPosition(40, 15);
 
-                Path.genXPathRight(pathLength);
-                Console.SetCursorPosition(Console.CursorLeft - (1+(4 * pathLength)), Console.CursorTop);
-                Corner.genCorner(false, false);
-                Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop + (2 * pathLength));
-                Path.genYPath(pathLength);
+                //Path.genXPathRight(pathLength);
+                //Console.SetCursorPosition(Console.CursorLeft - (1+(4 * pathLength)), Console.CursorTop);
+                Corner.genCorner(false, true);
+                //Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop + (2 * pathLength));
+                //Path.genYPath(pathLength);
 
                 //Box.genBoxOpTop();
                 //SetCursorPosition(Console.CursorLeft, Console.CursorTop + (2*pathLength));
