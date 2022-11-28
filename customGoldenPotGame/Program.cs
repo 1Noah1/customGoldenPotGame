@@ -1,4 +1,4 @@
-﻿using System.Security.Cryptography;
+
 
 namespace customGoldenPotGame
 {
@@ -19,15 +19,13 @@ namespace customGoldenPotGame
                 map.renderMap();
                 Item.renderItem();
                 bool failed = false;
-            //Maze.assets.genBoxOpTop();
-
                 while (!failed)
                 {
                     Player.movePlayerToNextPos();
                     Player.movement();
                     Item.renderItem();
                     GameManager.detectItem();
-                } 
+                }
         }
     }
 }
