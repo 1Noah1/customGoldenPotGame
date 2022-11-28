@@ -1,4 +1,4 @@
-﻿using System.Security.Cryptography;
+
 
 namespace customGoldenPotGame
 {
@@ -17,12 +17,8 @@ namespace customGoldenPotGame
             Item Item = new();
             
                 map.renderMap();
-                //Item.renderItem();
+                Item.renderItem();
                 bool failed = false;
-            //Maze.assets.renderAllBoxes();
-            Maze.assets.testCorners();
-            Console.ReadKey();
-            //Maze.assets.testPaths();
                 while (!failed)
                 {
                     Player.movePlayerToNextPos();
