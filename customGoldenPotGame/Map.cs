@@ -37,13 +37,13 @@ namespace customGoldenPotGame
             for (int i = 1; i < GameManager.Width; i++)
             {
                 Console.SetCursorPosition(padding / 2 + i, padding / 4);
-                Console.Write(Maze.assets.horiLine);
+                Console.Write(Maze.assets.horiBoxLine);
             }
             // bottom
             for (int i = 0; i <= GameManager.Width; i++)
             {
                 Console.SetCursorPosition(padding / 2 + i, GameManager.Height + padding / 4);
-                Console.Write(Maze.assets.horiLine);
+                Console.Write(Maze.assets.horiPathLine);
             }
             // left
             for (int i = 1; i <= GameManager.Height; i++)
