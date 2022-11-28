@@ -19,9 +19,10 @@ namespace customGoldenPotGame
                 map.renderMap();
                 //Item.renderItem();
                 bool failed = false;
-            //Maze.assets.renderAllBoxes();
+            Maze.assets.renderAllBoxes();
             Maze.assets.testCorners();
-            //Maze.assets.testPaths();
+            Console.ReadKey();
+            Maze.assets.testPaths();
                 while (!failed)
                 {
                     Player.movePlayerToNextPos();

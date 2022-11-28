@@ -32,16 +32,21 @@ namespace customGoldenPotGame
                 Path.genYPath(2);
             }
 
+
+
             public static void testCorners()
             {
                 int pathLength = 2;
 
-                Console.SetCursorPosition(20, 15);
+                Console.SetCursorPosition(40, 15);
 
                 Path.genXPathRight(pathLength);
-                Corner.genCorner(true, false);
+                Console.SetCursorPosition(Console.CursorLeft - (1+(4 * pathLength)), Console.CursorTop);
+                Corner.genCorner(false, false);
+                Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop + (2 * pathLength));
+                Path.genYPath(pathLength);
 
-                Box.genBoxOpTop();
+                //Box.genBoxOpTop();
                 //SetCursorPosition(Console.CursorLeft, Console.CursorTop + (2*pathLength));
                 //Path.genYPath(pathLength);
             }
@@ -149,7 +154,14 @@ namespace customGoldenPotGame
                     }
                     else if(!startPointingRight && !endingPointingUp)
                     {
-
+                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                        Console.Write(horiPathLine);
+                        Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
+                        Console.Write(tiltToRightLine);
+                        Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop + 1);
+                        Console.Write(verLine);
+                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + 1);
+                        Console.Write(verLine);
                     }
 
                 }
