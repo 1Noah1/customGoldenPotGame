@@ -16,6 +16,10 @@ namespace customGoldenPotGame
         
         public static int[] itemPos = new int[2];
 
+
+        // make 2 dimensional array or 2 dimensional list
+        public int[] possibleItemPos = new int[];
+
         private static int score;
 
         public GameManager()

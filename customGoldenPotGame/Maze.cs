@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO.IsolatedStorage;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security;
 using System.Security.AccessControl;
 using System.Security.Cryptography;
@@ -12,54 +13,195 @@ namespace customGoldenPotGame
 {
     public class Maze
     {
+        private int pathLength;
+
+        public Maze()
+        {
+
+            pathLength = 2;
+            
+        }
+        public void genMaze()
+        {
+            Random random = new();
+
+            Console.SetCursorPosition(GameManager.mainPlayerPos[0], GameManager.mainPlayerPos[1] + 1);
+            assets.Path.genYPath(pathLength);
+
+            int rndNum = random.Next(1,4);
+            if ( rndNum < 4)
+            {
+                decideOnRnd(false, rndNum, random);
+            }
+            else
+            {
+                decideOnRnd(true, rndNum, random);
+            }
+
+            
+        }
+        public void decideOnRnd(bool isBox, int uniqueRndNum, Random rndObj)
+        {
+            if (isBox)
+            {
+                uniqueRndNum = rndObj.Next(1, 2);
+            }
+
+            int[] dirAndCorner = getRealitiveDirection(uniqueRndNum, lastDir);
+
+            if (uniqueRndNum == 1)
+            {
+                if (isBox)  
+                {
+                    assets.Box.genBoxOpRight();
+                    //drawRelativeBox (non relative relative left)
+                    //return lastDir;
+
+                }
+                else
+                {
+                    
+                    
+                    //left
+                    // drawRelativePath (non relative relative left)
+                    //return lastDir;
+                }
+
+            }
+            else if (uniqueRndNum == 2)
+            {
+                //irght
+
+                if (isBox)
+                {
+                    assets.Box.genBoxOpLeft();
+                    //drawRelativeBox
+                    //return lastDir;
+
+                }
+                else
+                {
+                    // drawRelativePath
+                    //return lastDir;
+                }
+
+            }
+            else if(uniqueRndNum == 3)
+            {
+
+
+                // up
+
+
+                // drawRelativePath
+                //return lastDir;
+
+            }
+            else
+            {
+                //bottom / down case
+            }
+
+            
+
+
+        }
+        public static int[] getRealitiveDirection(int nextDir, int lastDir)
+        {
+            if(lastDir == 1)
+            {
+                if (nextDir == 1)
+                {
+                    // corner opLeftToBot (4)
+                    // dirAndCorner[0] = 4, dirAndCorner = 4
+                    int[] dirAndCorner = { 4, 4 };
+                    return dirAndCorner;
+                }else if(nextDir == 2)
+                {
+                    //corner 2
+                    int[] dirAndCorner = { 3, 2 };    
+                    return dirAndCorner;
+                }else
+                {
+                    int[] dir = { 5 };
+                    return dir;
+                }
+            }else if (lastDir == 2)
+            {
+                if (nextDir == 1)
+                {
+                    // corner 1
+                    int[] dirAndCorner = { 3, 3 };
+
+                    return dirAndCorner;
+                }
+                else if (nextDir == 2)
+                {
+                    int[] dirAndCorner = { 4, 3 }
+                    return dirAndCorner;
+                }
+                else
+                {
+                    int[] dir = { 2 };
+                    return dir;
+                }
+            }
+            else if(lastDir == 3)
+            {
+                if(nextDir == 1)
+                {
+
+                    int[] dirAndCorner = { nextDir, 3 };
+                    return dirAndCorner;
+                }else if(nextDir == 2)
+                {
+                    int[] dirAndCorner = { nextDir, 4 };
+                    return dirAndCorner;
+                }else
+                {
+                    int[] dir = { nextDir };
+                    return dir;
+                }
+
+            }
+            else
+            {
+                if (nextDir == 1)
+                {
+                    int[] dirAndCorner = { 2, 2 };
+                    return dirAndCorner;
+                }
+                else if (nextDir == 2)
+                {
+                    int[] dirAndCorner = { 1, 1 };
+                    return dirAndCorner;
+                }
+                else
+                {
+                    int[] dir = { lastDir };
+                    return dir;
+                }
+            }
+            
+
+            //next dir 1 == left
+            // next dir 
+
+
+        }
+
         public class assets
         {
 
             // Item should be placed inside of the boxes
-            // we'll 
-            public const char verLine = '|';
-            public const char horiBoxLine = '_';
-            public const char horiPathLine = '-';
-            // implement later
-            //const char boxHoriLine = '_';
-            const char tiltToRightLine = '/';
-            const char tiltToLeftLine = '\\';
-
-            public static void testPaths()
-            {
-                Console.SetCursorPosition(20, 20);
-                
-                Path.genYPath(2);
-            }
+            internal const char verLine = '|';
+            internal const char horiBoxLine = '_';
+            internal const char horiPathLine = '-';
+            internal const char tiltToRightLine = '/';
+            internal const char tiltToLeftLine = '\\';
 
 
-
-            public static void testCorners()
-            {
-                int pathLength = 2;
-
-                Console.SetCursorPosition(40, 15);
-
-                //Path.genXPathRight(pathLength);
-                //Console.SetCursorPosition(Console.CursorLeft - (1+(4 * pathLength)), Console.CursorTop);
-                Corner.genCorner(false, true);
-                //Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop + (2 * pathLength));
-                //Path.genYPath(pathLength);
-
-                //Box.genBoxOpTop();
-                //SetCursorPosition(Console.CursorLeft, Console.CursorTop + (2*pathLength));
-                //Path.genYPath(pathLength);
-            }
-
-            public static void renderAllBoxes()
-            {
-                Box.genBoxOpBot();
-                Box.genBoxOpLeft();
-                Box.genBoxOpRight();
-                Box.genBoxOpTop();
-            }
-
-
+            
             public class Box
             {
                 //short for Box with open top

@@ -1,5 +1,4 @@
-
-
+using System;
 namespace customGoldenPotGame
 {
     internal class Program { 
@@ -14,18 +13,21 @@ namespace customGoldenPotGame
             GameManager gameManager = new();
             Map map = new();
             Player Player = new();
+            Maze maze = new();
             Item Item = new();
-            
-                map.renderMap();
-                Item.renderItem();
-                bool failed = false;
-                while (!failed)
-                {
-                    Player.movePlayerToNextPos();
-                    Player.movement();
-                    Item.renderItem();
-                    GameManager.detectItem();
-                }
+
+            map.renderMap();
+            Item.renderItem();
+            maze.genMaze();
+
+            bool failed = false;
+            while (!failed)
+            {
+               Player.movePlayerToNextPos();
+               Player.movement();
+               //Item.renderItem();
+               GameManager.detectItem();
+            }
         }
     }
 }
