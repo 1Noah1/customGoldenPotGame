@@ -17,17 +17,20 @@ namespace customGoldenPotGame
             Item Item = new();
 
             map.renderMap();
-            Item.renderItem();
-            maze.genMaze();
+            //Item.renderItem();
+            //maze.genMaze();
+
+            Maze.testAssets();
+            Console.ReadKey();
 
             bool failed = false;
-            while (!failed)
+            /*while (!failed)
             {
                Player.movePlayerToNextPos();
                Player.movement();
                //Item.renderItem();
                GameManager.detectItem();
-            }
+            }*/
         }
     }
 }

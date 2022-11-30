@@ -21,19 +21,43 @@ namespace customGoldenPotGame
             pathLength = 2;
             
         }
+        public static void testAssets()
+        {
+            Console.SetCursorPosition(5, 20);
+            Console.Write("1");
+            Console.SetCursorPosition(10, 20);
+            assets.Corner.genCorner(false, true);
+
+            Console.SetCursorPosition(15, 20);
+
+            Console.Write("2");
+            Console.SetCursorPosition(20, 20);
+            assets.Corner.genCorner(true, true);
+
+            Console.SetCursorPosition(25, 20);
+
+            Console.Write("3");
+            Console.SetCursorPosition(30, 20);
+            assets.Corner.genCorner(false, false);
+        }
         public void genMaze()
         {
             Random random = new();
 
-            Console.SetCursorPosition(GameManager.mainPlayerPos[0], GameManager.mainPlayerPos[1] + 1);
-            assets.Path.genYPath(pathLength);
+            Console.SetCursorPosition(GameManager.mainPlayerPos[0], GameManager.mainPlayerPos[1] - 15);
+            //no offset
+            assets.Path.genYPath(pathLength, false);
+            Console.Write("A");
+            
             int lastDir = 3;
-
-            for (int i = 0; i<2; i++) { 
+            
+            for (int i = 0; i<1; i++) { 
                 int rndNum = random.Next(1,4);
                 if ( rndNum < 4)
                 {
+
                     lastDir = decideOnRnd(lastDir,false, rndNum, random);
+                    Console.Write("B");
 
                 }
                 else
@@ -100,6 +124,7 @@ namespace customGoldenPotGame
             }
             else if (dirAndCorner[0] == 3)
             {
+                //up
                 if (isBox)
                 {
                     assets.Box.genBoxOpBot();
@@ -108,7 +133,7 @@ namespace customGoldenPotGame
                 else
                 {
                     assets.Corner.decideOnCorrectCorner(dirAndCorner);
-                    assets.Path.genYPath(standardPathLength);
+                    assets.Path.genYPath(standardPathLength, false);
                     return 3;
                 }
             }
@@ -127,7 +152,7 @@ namespace customGoldenPotGame
                     //offset for down
                     Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop + 2 * standardPathLength);
 
-                    assets.Path.genYPath(standardPathLength);
+                    assets.Path.genYPath(standardPathLength, true);
                     return 4;
                 }
 
@@ -376,17 +401,27 @@ namespace customGoldenPotGame
                     }
                 }
 
-                public static void genYPath(int pathLength)
+                public static void genYPath(int pathLength, bool offset)
                 {
                     // deafault direction is up offset is needed when down should be down
-                    // SetCursorPos(CursorLeft, 2 * pathLength)
-
+                    // SetCursorPos(CursorLeft, ConsoleTop + (2 * pathLength))
                     for (int i = 0; i <= pathLength; i++)
                     {
+                        // needs to be fixed
                         Lines.drawYLine(true);
-                        Console.SetCursorPosition(Console.CursorLeft + 2, Console.CursorTop - 1);
-                        Lines.drawYLine(false);
+                        Console.SetCursorPosition(Console.CursorLeft + 2, Console.CursorTop + 2);
+                        Lines.drawYLine(true);
                         Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
+                    }
+                    if (!offset)
+                    {
+                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                        //Console.Write("U");//debug
+                    }
+                    else
+                    {
+                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + ( 1 + (2 * pathLength)));
+                        //Console.Write("D");//debug
                     }
                 }
 
