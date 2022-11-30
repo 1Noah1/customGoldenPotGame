@@ -27,21 +27,27 @@ namespace customGoldenPotGame
 
             Console.SetCursorPosition(GameManager.mainPlayerPos[0], GameManager.mainPlayerPos[1] + 1);
             assets.Path.genYPath(pathLength);
+            int lastDir = 3;
 
-            int rndNum = random.Next(1,4);
-            if ( rndNum < 4)
-            {
-                decideOnRnd(false, rndNum, random);
-            }
-            else
-            {
-                decideOnRnd(true, rndNum, random);
+            for (int i = 0; i<2; i++) { 
+                int rndNum = random.Next(1,4);
+                if ( rndNum < 4)
+                {
+                    lastDir = decideOnRnd(lastDir,false, rndNum, random);
+
+                }
+                else
+                {
+                    lastDir = decideOnRnd(lastDir, true, rndNum, random);
+                }
             }
 
-            
+
         }
-        public void decideOnRnd(bool isBox, int uniqueRndNum, Random rndObj)
+        public int decideOnRnd(int lastDir, bool isBox, int uniqueRndNum, Random rndObj)
         {
+            int standardPathLength = 2;
+
             if (isBox)
             {
                 uniqueRndNum = rndObj.Next(1, 2);
@@ -49,62 +55,83 @@ namespace customGoldenPotGame
 
             int[] dirAndCorner = getRealitiveDirection(uniqueRndNum, lastDir);
 
-            if (uniqueRndNum == 1)
+            if (dirAndCorner[0] == 1)
             {
-                if (isBox)  
+                if (isBox)
                 {
                     assets.Box.genBoxOpRight();
                     //drawRelativeBox (non relative relative left)
-                    //return lastDir;
 
+                    return 5;
                 }
                 else
                 {
-                    
-                    
-                    //left
-                    // drawRelativePath (non relative relative left)
-                    //return lastDir;
+
+                    assets.Corner.decideOnCorrectCorner(dirAndCorner);
+                    // offset for left
+                    // might need to change to Console.CursorLeft - (1+(2*standardPathLength),
+                    Console.SetCursorPosition(Console.CursorLeft - (2 * standardPathLength), Console.CursorTop);
+                    assets.Path.genXPathRight(standardPathLength);
+
+                    return 1;
                 }
 
+
             }
-            else if (uniqueRndNum == 2)
+            else if (dirAndCorner[0] == 2)
             {
-                //irght
+                //right
 
                 if (isBox)
                 {
                     assets.Box.genBoxOpLeft();
                     //drawRelativeBox
-                    //return lastDir;
+                    return 6;
 
                 }
                 else
                 {
-                    // drawRelativePath
-                    //return lastDir;
+                    assets.Corner.decideOnCorrectCorner(dirAndCorner);
+                    assets.Path.genXPathRight(standardPathLength);
+                    
+                    return 2;
                 }
 
             }
-            else if(uniqueRndNum == 3)
+            else if (dirAndCorner[0] == 3)
             {
-
-
-                // up
-
-
-                // drawRelativePath
-                //return lastDir;
-
+                if (isBox)
+                {
+                    assets.Box.genBoxOpBot();
+                    return 7;
+                }
+                else
+                {
+                    assets.Corner.decideOnCorrectCorner(dirAndCorner);
+                    assets.Path.genYPath(standardPathLength);
+                    return 3;
+                }
             }
             else
             {
                 //bottom / down case
+                if (isBox)
+                {
+                    assets.Box.genBoxOpTop();
+                    return 8;
+                }
+                else
+                {
+                    assets.Corner.decideOnCorrectCorner(dirAndCorner);
+
+                    //offset for down
+                    Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop + 2 * standardPathLength);
+
+                    assets.Path.genYPath(standardPathLength);
+                    return 4;
+                }
+
             }
-
-            
-
-
         }
         public static int[] getRealitiveDirection(int nextDir, int lastDir)
         {
@@ -123,7 +150,7 @@ namespace customGoldenPotGame
                     return dirAndCorner;
                 }else
                 {
-                    int[] dir = { 5 };
+                    int[] dir = { 5, 0 };
                     return dir;
                 }
             }else if (lastDir == 2)
@@ -137,12 +164,12 @@ namespace customGoldenPotGame
                 }
                 else if (nextDir == 2)
                 {
-                    int[] dirAndCorner = { 4, 3 }
+                    int[] dirAndCorner = { 4, 3 };
                     return dirAndCorner;
                 }
                 else
                 {
-                    int[] dir = { 2 };
+                    int[] dir = { 2, 0 };
                     return dir;
                 }
             }
@@ -159,7 +186,7 @@ namespace customGoldenPotGame
                     return dirAndCorner;
                 }else
                 {
-                    int[] dir = { nextDir };
+                    int[] dir = { nextDir, 0 };
                     return dir;
                 }
 
@@ -178,7 +205,7 @@ namespace customGoldenPotGame
                 }
                 else
                 {
-                    int[] dir = { lastDir };
+                    int[] dir = { lastDir, 0 };
                     return dir;
                 }
             }
@@ -252,6 +279,27 @@ namespace customGoldenPotGame
             }
             public class Corner
             {
+                public static void decideOnCorrectCorner(int[] dirAndCorner)
+                {
+                    if (dirAndCorner[1] != 0) { 
+                        if (dirAndCorner[1] == 1)
+                        {
+                            assets.Corner.genCorner(false, true);
+                        }
+                        else if (dirAndCorner[1] == 2)
+                        {
+                            assets.Corner.genCorner(true, true);
+                        }
+                        else if (dirAndCorner[1] == 3)
+                        {
+                            assets.Corner.genCorner(false, false);
+                        }
+                        else
+                        {
+                            assets.Corner.genCorner(true, false);
+                        }
+                    }
+                }
                 public static void genCorner(bool startPointingRight, bool endingPointingUp)
                 {
                     if (startPointingRight && endingPointingUp)
@@ -308,52 +356,6 @@ namespace customGoldenPotGame
 
                 }
             }
-
-
-            public class Lines
-            {
-                public static void drawXLine(bool right, char lineType)
-                {
-                    if (right)
-                    {
-                        for (int i = 0; i < 3; i++)
-                        {
-                            Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop);
-                            Console.Write(lineType);
-                        }
-                    }
-                    else
-                    {
-                        for (int i = 0; i < 2; i++)
-                        {
-                            Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
-                            Console.Write(lineType);
-                        }
-
-                    }
-                }
-                public static void drawYLine(bool above)
-                {
-                    if (above)
-                    {
-                        for (int i = 0; i < 2; i++)
-                        {
-                            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop - 1);
-                            Console.Write(verLine);
-                        }
-                    }
-                    else
-                    {
-                        for (int i = 0; i < 2; i++)
-                        {
-                            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + 1);
-                            Console.Write(verLine);
-                        }
-
-                    }
-                }
-
-            }
             public class Path
             {
                 // make no Argument possible
@@ -402,7 +404,49 @@ namespace customGoldenPotGame
                 }
             }
 
+            public class Lines
+            {
+                public static void drawXLine(bool right, char lineType)
+                {
+                    if (right)
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop);
+                            Console.Write(lineType);
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < 2; i++)
+                        {
+                            Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
+                            Console.Write(lineType);
+                        }
+                    }
+                }
+                public static void drawYLine(bool above)
+                {
+                    if (above)
+                    {
+                        for (int i = 0; i < 2; i++)
+                        {
+                            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop - 1);
+                            Console.Write(verLine);
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < 2; i++)
+                        {
+                            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + 1);
+                            Console.Write(verLine);
+                        }
 
+                    }
+                }
+
+            }
         }
     }
 }
