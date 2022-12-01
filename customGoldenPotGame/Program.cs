@@ -18,9 +18,8 @@ namespace customGoldenPotGame
 
             map.renderMap();
             //Item.renderItem();
-            //maze.genMaze();
-
-            Maze.testAssets();
+            maze.genMaze();
+            //Maze.testAssets();
             Console.ReadKey();
 
             bool failed = false;

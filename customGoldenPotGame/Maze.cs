@@ -23,28 +23,26 @@ namespace customGoldenPotGame
         }
         public static void testAssets()
         {
-            Console.SetCursorPosition(5, 20);
-            Console.Write("1");
-            Console.SetCursorPosition(10, 20);
-            assets.Corner.genCorner(false, true);
+            // all Paths with and without offset checked for last Cursor Pos edit: put more effort into checking next time, they failed the first test i did
+                // Cursor Pos has to be on the relative left
+                    // no offset = regular left top, offset = regular right bottom
+            Console.SetCursorPosition(30, 15);
+            Console.Write("R");
+            int stdPathLength = 2;
 
-            Console.SetCursorPosition(15, 20);
+            assets.Path.genXPathRight(stdPathLength, true);
+            assets.Corner.genCorner(true, false);
+            assets.Path.genYPath(stdPathLength, true);
 
-            Console.Write("2");
-            Console.SetCursorPosition(20, 20);
-            assets.Corner.genCorner(true, true);
 
-            Console.SetCursorPosition(25, 20);
 
-            Console.Write("3");
-            Console.SetCursorPosition(30, 20);
-            assets.Corner.genCorner(false, false);
         }
         public void genMaze()
         {
             Random random = new();
 
             Console.SetCursorPosition(GameManager.mainPlayerPos[0], GameManager.mainPlayerPos[1] - 15);
+
             //no offset
             assets.Path.genYPath(pathLength, false);
             Console.Write("A");
@@ -63,7 +61,9 @@ namespace customGoldenPotGame
                 else
                 {
                     lastDir = decideOnRnd(lastDir, true, rndNum, random);
+                    Console.Write("C");
                 }
+            
             }
 
 
@@ -76,7 +76,6 @@ namespace customGoldenPotGame
             {
                 uniqueRndNum = rndObj.Next(1, 2);
             }
-
             int[] dirAndCorner = getRealitiveDirection(uniqueRndNum, lastDir);
 
             if (dirAndCorner[0] == 1)
@@ -95,7 +94,7 @@ namespace customGoldenPotGame
                     // offset for left
                     // might need to change to Console.CursorLeft - (1+(2*standardPathLength),
                     Console.SetCursorPosition(Console.CursorLeft - (2 * standardPathLength), Console.CursorTop);
-                    assets.Path.genXPathRight(standardPathLength);
+                    assets.Path.genXPathRight(standardPathLength, false);
 
                     return 1;
                 }
@@ -116,7 +115,7 @@ namespace customGoldenPotGame
                 else
                 {
                     assets.Corner.decideOnCorrectCorner(dirAndCorner);
-                    assets.Path.genXPathRight(standardPathLength);
+                    assets.Path.genXPathRight(standardPathLength, false);
                     
                     return 2;
                 }
@@ -234,12 +233,6 @@ namespace customGoldenPotGame
                     return dir;
                 }
             }
-            
-
-            //next dir 1 == left
-            // next dir 
-
-
         }
 
         public class assets
@@ -268,8 +261,6 @@ namespace customGoldenPotGame
                 }
                 public static void genBoxOpRight()
                 {
-                    Console.SetCursorPosition(40, 15);
-
 
                     Console.Write(horiBoxLine);
                     Lines.drawXLine(false, horiBoxLine);
@@ -277,12 +268,14 @@ namespace customGoldenPotGame
                     Lines.drawYLine(false);
                     Lines.drawXLine(true, horiBoxLine);
 
+
+
+
                 }
 
                 public static void genBoxOpLeft()
                 {
-                    Console.SetCursorPosition(15, 15);
-
+                    
 
                     Lines.drawXLine(true, horiBoxLine);
                     Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop + 1);
@@ -294,7 +287,6 @@ namespace customGoldenPotGame
 
                 public static void genBoxOpBot()
                 {
-                    Console.SetCursorPosition(30, 15);
                     Lines.drawYLine(true);
                     Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
                     Lines.drawXLine(true, horiPathLine);
@@ -340,21 +332,21 @@ namespace customGoldenPotGame
                     }
                     else if (startPointingRight && !endingPointingUp)
                     {
-                        Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop);
+                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop - 2);
                         Console.Write(horiPathLine);
-                        Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop);
-                        Console.Write(tiltToLeftLine);
-                        for (int i = 0; i <= 1; i++) 
-                        { 
-                            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + 1);
-                            Console.Write(verLine);
-                        }
                         Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
-
+                        Console.Write(tiltToRightLine);
+                        Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop + 1);
+                        Console.Write(verLine);
+                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + 1);
+                        Console.Write(verLine);
+                        Console.SetCursorPosition(Console.CursorLeft + 2, Console.CursorTop);
+                        Console.Write(tiltToRightLine);
+                        Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
                     }
                     else if(!startPointingRight && endingPointingUp)
                     {
-                        Console.Write(verLine);
+                        Console.Write(tiltToRightLine);
                         Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + 2);
                         Console.Write(horiPathLine);
                         Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop);
@@ -365,18 +357,24 @@ namespace customGoldenPotGame
                         Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop - 1);
                         Console.Write(verLine);
                         Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
-
                     }
                     else if(!startPointingRight && !endingPointingUp)
                     {
-                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                        Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop);
                         Console.Write(horiPathLine);
-                        Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
-                        Console.Write(tiltToRightLine);
-                        Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop + 1);
-                        Console.Write(verLine);
-                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + 1);
-                        Console.Write(verLine);
+                        Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop);
+                        Console.Write(tiltToLeftLine);
+                        for (int i = 0; i <= 1; i++)
+                        {
+                            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + 1);
+                            Console.Write(verLine);
+                        }
+                        Console.SetCursorPosition(Console.CursorLeft - 3, Console.CursorTop);
+                        Console.Write(tiltToLeftLine);
+                        // if following asset seems off might be line below
+                        Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop);
+
+
                     }
 
                 }
@@ -385,34 +383,40 @@ namespace customGoldenPotGame
             {
                 // make no Argument possible
                 // when no argument is given length should be one
-                public static void genXPathRight(int pathLength)
-                {
-                    for (int i = 0; i <= pathLength; i++)
-                    {
+                // this offset works for pathlength of 2
+                // Console.SetCursorPosition(Console.CursorLeft - (5+(2* stdPathLength)), Console.CursorTop);
 
-                        Lines.drawXLine(true, horiPathLine);
-                        Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop + 2);
-                        Lines.drawXLine(false, horiPathLine);
-                        for (int j = 0; j < 2; j++)
-                        {
-                            Console.Write(horiPathLine);
-                        }
-                        Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 2);
+                public static void genXPathRight(int pathLength, bool offset)
+                {
+                    if (offset)
+                    {
+                        Console.SetCursorPosition(Console.CursorLeft - (3 +(2 * pathLength)), Console.CursorTop);
                     }
+                    for (int i = 0; i <= 2/pathLength; i++)
+                    {
+                        Lines.drawXLine(true, horiPathLine);
+                    }
+                    Console.SetCursorPosition(Console.CursorLeft +1, Console.CursorTop + 2);
+                    for (int i = 0; i <= 2 / pathLength; i++)
+                    {
+                        Lines.drawXLine(false, horiPathLine);
+                    }
+                    if (!offset) { 
+                        Console.SetCursorPosition(Console.CursorLeft + (1+(2 * pathLength)), Console.CursorTop - 2);
+                    }
+                    else
+                    {
+                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                    }
+
                 }
 
                 public static void genYPath(int pathLength, bool offset)
                 {
                     // deafault direction is up offset is needed when down should be down
                     // SetCursorPos(CursorLeft, ConsoleTop + (2 * pathLength))
-                    for (int i = 0; i <= pathLength; i++)
-                    {
-                        // needs to be fixed
-                        Lines.drawYLine(true);
-                        Console.SetCursorPosition(Console.CursorLeft + 2, Console.CursorTop + 2);
-                        Lines.drawYLine(true);
-                        Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
-                    }
+                    // checked
+                    
                     if (!offset)
                     {
                         Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
@@ -420,22 +424,26 @@ namespace customGoldenPotGame
                     }
                     else
                     {
-                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + ( 1 + (2 * pathLength)));
+                        // works for pathLength of 2
+                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + ( 1 + (3 * pathLength)));
                         //Console.Write("D");//debug
                     }
-                }
 
-                public static void genXPathRight()
-                {
-                    Console.SetCursorPosition(15, 20);
-
-                    Lines.drawXLine(true, horiPathLine);
-                    Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop + 2);
-                    Lines.drawXLine(false, horiPathLine);
-                    for (int j = 0; j < 2; j++)
+                    for (int i = 0; i <= pathLength; i++)
                     {
-                        Console.Write(horiPathLine);
+
+
+                        Lines.drawYLine(true);
+                        Console.SetCursorPosition(Console.CursorLeft + 2, Console.CursorTop + 2);
+                        Lines.drawYLine(true);
+                        
+                        Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
                     }
+                    if (offset)
+                    {
+                        Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop + (1 + (2 * pathLength)));
+                    }
+
                 }
             }
 
@@ -453,7 +461,7 @@ namespace customGoldenPotGame
                     }
                     else
                     {
-                        for (int i = 0; i < 2; i++)
+                        for (int i = 0; i < 3; i++)
                         {
                             Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
                             Console.Write(lineType);
