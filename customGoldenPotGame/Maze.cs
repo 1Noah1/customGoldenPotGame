@@ -23,16 +23,18 @@ namespace customGoldenPotGame
         }
         public static void testAssets()
         {
-            // all Paths with and without offset checked for last Cursor Pos edit: put more effort into checking next time, they failed the first test i did
+            // all Paths with and without offset checked for last Cursor Pos edit: put more effort into checking next time, they failed the first test 
                 // Cursor Pos has to be on the relative left
                     // no offset = regular left top, offset = regular right bottom
             Console.SetCursorPosition(30, 15);
             Console.Write("R");
             int stdPathLength = 2;
 
-            assets.Path.genXPathRight(stdPathLength, true);
-            assets.Corner.genCorner(true, false);
-            assets.Path.genYPath(stdPathLength, true);
+            assets.Path.genYPath(stdPathLength, false);
+            //Console.Write("P");
+            assets.Path.genXPathRight(stdPathLength, false);
+            //assets.Path.genYPath(stdPathLength, true);
+
 
 
 
@@ -92,9 +94,7 @@ namespace customGoldenPotGame
 
                     assets.Corner.decideOnCorrectCorner(dirAndCorner);
                     // offset for left
-                    // might need to change to Console.CursorLeft - (1+(2*standardPathLength),
-                    Console.SetCursorPosition(Console.CursorLeft - (2 * standardPathLength), Console.CursorTop);
-                    assets.Path.genXPathRight(standardPathLength, false);
+                    assets.Path.genXPathRight(standardPathLength,true);
 
                     return 1;
                 }
@@ -164,7 +164,7 @@ namespace customGoldenPotGame
                 if (nextDir == 1)
                 {
                     // corner opLeftToBot (4)
-                    // dirAndCorner[0] = 4, dirAndCorner = 4
+                    // dirAndCorner[0] = 4, dirAndCorner = 4 no reverse
                     int[] dirAndCorner = { 4, 4 };
                     return dirAndCorner;
                 }else if(nextDir == 2)
@@ -199,14 +199,16 @@ namespace customGoldenPotGame
             }
             else if(lastDir == 3)
             {
+                // reverse needed
                 if(nextDir == 1)
                 {
-
-                    int[] dirAndCorner = { nextDir, 3 };
+                    // reverse 7
+                    int[] dirAndCorner = { nextDir, 7 };
                     return dirAndCorner;
                 }else if(nextDir == 2)
                 {
-                    int[] dirAndCorner = { nextDir, 4 };
+                    // reverse 8
+                    int[] dirAndCorner = { nextDir, 8 };
                     return dirAndCorner;
                 }else
                 {
@@ -219,12 +221,12 @@ namespace customGoldenPotGame
             {
                 if (nextDir == 1)
                 {
-                    int[] dirAndCorner = { 2, 2 };
+                    int[] dirAndCorner = { 2, 6 };
                     return dirAndCorner;
                 }
                 else if (nextDir == 2)
                 {
-                    int[] dirAndCorner = { 1, 1 };
+                    int[] dirAndCorner = { 1, 5 };
                     return dirAndCorner;
                 }
                 else
@@ -252,7 +254,6 @@ namespace customGoldenPotGame
                 //short for Box with open top
                 public static void genBoxOpTop()
                 {
-                    // line below only for debugging
 
                     Lines.drawYLine(false);
                     Lines.drawXLine(true, horiPathLine);
@@ -301,51 +302,101 @@ namespace customGoldenPotGame
                     if (dirAndCorner[1] != 0) { 
                         if (dirAndCorner[1] == 1)
                         {
-                            assets.Corner.genCorner(false, true);
+                            
+                            //assets.Corner.genCorner(false, true);
                         }
                         else if (dirAndCorner[1] == 2)
                         {
-                            assets.Corner.genCorner(true, true);
+                            //remove and uncomment after reverse is implemented
+                            //assets.Corner.genCorner(true, true);
                         }
                         else if (dirAndCorner[1] == 3)
                         {
-                            assets.Corner.genCorner(false, false);
+                            //remove and uncomment after reverse is implemented
+                            //assets.Corner.genCorner(false, false);
                         }
                         else
                         {
-                            assets.Corner.genCorner(true, false);
+                            //remove and uncomment after reverse is implemented
+                            //assets.Corner.genCorner(true, false);
                         }
                     }
                 }
-                public static void genCorner(bool startPointingRight, bool endingPointingUp)
+                public static void genCorner(bool startPointingRight, bool endingPointingUp, bool reverse)
                 {
                     if (startPointingRight && endingPointingUp)
                     {
-                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + 2);
-                        Console.Write(horiPathLine);
-                        Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
-                        Console.Write(horiPathLine);
-                        Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
-                        Console.Write(tiltToLeftLine);
-                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop - 1);
-                        Console.Write(verLine);
+                        if (reverse)
+                        { 
+                            Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop + 2);
+
+                        }
+                        else
+                        {
+                            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                        }
+                            Console.Write(horiPathLine);
+                            Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
+                            Console.Write(horiPathLine);
+                            Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
+                            Console.Write(tiltToLeftLine);
+                            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop - 1);
+                            Console.Write(verLine);
+                        if (reverse)
+                        {
+                            Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop + 1);
+                        }
+                        else
+                        {
+                            Console.SetCursorPosition(Console.CursorLeft -1, Console.CursorTop);
+                        }
+                        Console.Write("E");
+                        
+
                     }
                     else if (startPointingRight && !endingPointingUp)
                     {
-                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop - 2);
-                        Console.Write(horiPathLine);
-                        Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
-                        Console.Write(tiltToRightLine);
-                        Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop + 1);
-                        Console.Write(verLine);
-                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + 1);
-                        Console.Write(verLine);
-                        Console.SetCursorPosition(Console.CursorLeft + 2, Console.CursorTop);
-                        Console.Write(tiltToRightLine);
-                        Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
+                        if (reverse)
+                        {
+                            Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop -3);
+                        }
+                        else
+                        {
+                            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop - 2);
+                        }
+                            Console.Write(horiPathLine);
+                            Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
+                            Console.Write(tiltToRightLine);
+                            Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop + 1);
+                            Console.Write(verLine);
+                            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + 1);
+                            Console.Write(verLine);
+                            Console.SetCursorPosition(Console.CursorLeft + 2, Console.CursorTop);
+                            Console.Write(tiltToRightLine);
+                        if (reverse)
+                        {
+                            Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 2);
+                        }
+                        else
+                        {
+                            Console.SetCursorPosition(Console.CursorLeft - 4, Console.CursorTop);
+                        }
+
+                        Console.Write("E");
+                        
                     }
-                    else if(!startPointingRight && endingPointingUp)
+                    else if (!startPointingRight && endingPointingUp)
                     {
+                        if (reverse)
+                        {
+                            Console.SetCursorPosition(Console.CursorLeft- 3, Console.CursorTop + 1);
+                        }
+                        else
+                        {
+
+                        }
+
+
                         Console.Write(tiltToRightLine);
                         Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + 2);
                         Console.Write(horiPathLine);
@@ -356,10 +407,23 @@ namespace customGoldenPotGame
                         Console.Write(verLine);
                         Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop - 1);
                         Console.Write(verLine);
-                        Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
+
+                        if (reverse)
+                        {
+                            Console.SetCursorPosition(Console.CursorLeft - 4, Console.CursorTop + 2);
+                        }
+                        else
+                        {
+                            Console.SetCursorPosition(Console.CursorLeft - 4, Console.CursorTop);
+
+                        }
+
+                        Console.Write("E");
                     }
-                    else if(!startPointingRight && !endingPointingUp)
+                    else if (!startPointingRight && !endingPointingUp)
                     {
+
+
                         Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop);
                         Console.Write(horiPathLine);
                         Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop);
@@ -420,13 +484,11 @@ namespace customGoldenPotGame
                     if (!offset)
                     {
                         Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
-                        //Console.Write("U");//debug
                     }
                     else
                     {
                         // works for pathLength of 2
                         Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + ( 1 + (3 * pathLength)));
-                        //Console.Write("D");//debug
                     }
 
                     for (int i = 0; i <= pathLength; i++)
