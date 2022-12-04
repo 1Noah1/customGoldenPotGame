@@ -50,6 +50,7 @@ namespace customGoldenPotGame
 
             //no offset
             assets.Path.genYPath(pathLength, false);
+            //debug when line is removed, replace with console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop); or similar
             Console.Write("A");
             
             int lastDir = 3;
@@ -60,12 +61,14 @@ namespace customGoldenPotGame
                 {
 
                     lastDir = decideOnRnd(lastDir,false, rndNum, random);
+                    //debug
                     Console.Write("B");
 
                 }
                 else
                 {
                     lastDir = decideOnRnd(lastDir, true, rndNum, random);
+                    //debug
                     Console.Write("C");
                 }
             
@@ -507,7 +510,7 @@ namespace customGoldenPotGame
                     if (!offset)
                     {
                         //debug
-                        Console.Write("S");
+                        //Console.Write("S");
                         Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
                     }
                     else
