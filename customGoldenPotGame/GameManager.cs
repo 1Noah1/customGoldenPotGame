@@ -16,6 +16,8 @@ namespace customGoldenPotGame
         
         public static int[] itemPos = new int[2];
 
+        public static int[] badItemPos = new int[2];
+
         private static int score;
 
         public GameManager()
@@ -48,11 +50,23 @@ namespace customGoldenPotGame
             if (mainPlayerPos[0] == itemPos[0] 
                 && mainPlayerPos[1] == itemPos[1])
             {
+                Console.SetCursorPosition(badItemPos[0], badItemPos[1]);
+                Console.Write(" ");
                 Item Item = new();
                 score++;
                 Console.SetCursorPosition(8, 0);
                 Console.Write(score);
-            }
+            }else if(mainPlayerPos[0] == badItemPos[0]
+                && mainPlayerPos[1] == badItemPos[1])
+                {
+                Console.SetCursorPosition(itemPos[0], itemPos[1]);
+                Console.Write(" ");
+                Item Item = new();
+                score--;
+                Console.SetCursorPosition(8, 0);
+                Console.Write(score);
+
+             }
         }
     }
 }
