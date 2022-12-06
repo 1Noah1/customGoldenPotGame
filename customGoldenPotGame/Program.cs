@@ -23,13 +23,13 @@ namespace customGoldenPotGame
             Console.ReadKey();
 
             bool failed = false;
-            /*while (!failed)
+            while (!failed)
             {
                Player.movePlayerToNextPos();
                Player.movement();
                //Item.renderItem();
                GameManager.detectItem();
-            }*/
+            }
         }
     }
 }

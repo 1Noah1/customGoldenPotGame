@@ -34,7 +34,7 @@ namespace customGoldenPotGame
             int stdPathLength = 2;
 
             Console.Write("S");
-            assets.Path.genYPath(stdPathLength, false);
+            assets.Path.genXPathRight(stdPathLength, false);
             Console.Write("E");
 
 
