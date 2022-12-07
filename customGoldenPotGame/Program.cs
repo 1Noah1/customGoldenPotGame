@@ -8,20 +8,41 @@ namespace customGoldenPotGame
             Console.ForegroundColor = ConsoleColor.White;
             
             Menu menu = new Menu();
-            menu.startMenu();
-            
-            bool exit = false;
+            char gametype = menu.startMenu();
+
             GameManager gameManager = new();
             Map map = new();
             Player Player = new();
-            Maze maze = new();
-            Item Item = new();
+            
+
+            if (gametype == 'S' || gametype == 's')
+            {
+                bool exit = false;
+                Item Item = new();
+            }
+            else
+            {
+                menu.mazeMenu();
+                Maze maze = new();
+                while (true)
+                {
+                    maze.genMaze();
+                    ConsoleKeyInfo keyInfo = new ConsoleKeyInfo();
+                    if (keyInfo == ConsoleKey.Escape)
+                    {
+                        break;
+                    }
+                }
+
+                //Console.ReadKey();
+            }
+
 
             //map.renderMap();
             //Item.renderItem();
-            maze.genMaze();
+            
             //Maze.testAssets();
-            Console.ReadKey();
+            
 
             bool failed = false;
             while (!failed)

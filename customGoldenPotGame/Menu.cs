@@ -8,7 +8,9 @@ namespace customGoldenPotGame
 {
     public class Menu
     {
-        public void startMenu()
+        ConsoleKeyInfo keyInfo = new ConsoleKeyInfo();
+
+        public char startMenu()
         {
             string divider = "___________________________________________________";
             Console.WriteLine("Willkommen bei meinem Spiel!");
@@ -24,9 +26,24 @@ namespace customGoldenPotGame
             Thread.Sleep(2500);
             Console.WriteLine();
             Console.WriteLine("Viel Spaß!");
+            Console.WriteLine("");
+            Console.WriteLine("Für das");
             Console.WriteLine();
-            Console.WriteLine("Drücke eine beliebige Taste um fort zu fahren");
-            Console.ReadKey();
+            Console.WriteLine("Tippe \"S\" für das Spiel");
+            Console.WriteLine("Tippe \"L\" für das Labyrinth");
+            keyInfo = Console.ReadKey(true);
+            char inputKey = keyInfo.KeyChar;
+            return inputKey;
+        }
+
+        public void mazeMenu()
+        {
+            Console.WriteLine("Du kannst versuchen dich durch das Labyrinth zu bewegen");
+            Thread.Sleep(500);
+            Console.WriteLine("Schließe alles mit der \"ESC\" Taste ");
+            Thread.Sleep(500);
+            Console.WriteLine("Du kannst ein neues Labyrinth mit der \"N\" Taste generieren");
+             
         }
 
         public static void renderFailscreen() {
