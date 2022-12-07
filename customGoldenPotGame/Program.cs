@@ -16,7 +16,7 @@ namespace customGoldenPotGame
             Maze maze = new();
             Item Item = new();
 
-            map.renderMap();
+            //map.renderMap();
             //Item.renderItem();
             maze.genMaze();
             //Maze.testAssets();
