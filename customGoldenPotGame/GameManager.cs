@@ -15,7 +15,6 @@ namespace customGoldenPotGame
         public static int[] mainPlayerPos = new int[2];
         
         public static int[] itemPos = new int[2];
-
         public static int[] badItemPos = new int[2];
 
         private static int score;
