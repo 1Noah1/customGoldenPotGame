@@ -15,10 +15,7 @@ namespace customGoldenPotGame
         public static int[] mainPlayerPos = new int[2];
         
         public static int[] itemPos = new int[2];
-
-
-        // make 2 dimensional array or 2 dimensional list
-        //public int[] possibleItemPos = new int[];
+        public static int[] badItemPos = new int[2];
 
         private static int score;
 
@@ -47,16 +44,40 @@ namespace customGoldenPotGame
             Console.SetCursorPosition(pos[0], pos[1]);
             Console.Write(item);
         }
-        public static void detectItem()
+        public static bool detectItem()
         {
             if (mainPlayerPos[0] == itemPos[0] 
                 && mainPlayerPos[1] == itemPos[1])
             {
+                Console.SetCursorPosition(badItemPos[0], badItemPos[1]);
+                Console.Write(" ");
                 Item Item = new();
                 score++;
                 Console.SetCursorPosition(8, 0);
                 Console.Write(score);
+                return false;
             }
+            else if(mainPlayerPos[0] == badItemPos[0]
+                && mainPlayerPos[1] == badItemPos[1])
+                {
+                Console.SetCursorPosition(itemPos[0], itemPos[1]);
+                Console.Write(" ");
+                Item Item = new();
+                score--;
+                if(score < 0)
+                {
+                    Menu.renderFailscreen();
+                    return true;
+                }
+                else
+                {
+                    Console.SetCursorPosition(8, 0);
+                    Console.Write(score);
+                    return false;
+
+                }
+            }
+            return false;
         }
     }
 }
