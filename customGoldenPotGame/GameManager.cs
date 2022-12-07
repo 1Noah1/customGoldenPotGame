@@ -45,7 +45,7 @@ namespace customGoldenPotGame
             Console.SetCursorPosition(pos[0], pos[1]);
             Console.Write(item);
         }
-        public static void detectItem()
+        public static bool detectItem()
         {
             if (mainPlayerPos[0] == itemPos[0] 
                 && mainPlayerPos[1] == itemPos[1])
@@ -56,17 +56,29 @@ namespace customGoldenPotGame
                 score++;
                 Console.SetCursorPosition(8, 0);
                 Console.Write(score);
-            }else if(mainPlayerPos[0] == badItemPos[0]
+                return false;
+            }
+            else if(mainPlayerPos[0] == badItemPos[0]
                 && mainPlayerPos[1] == badItemPos[1])
                 {
                 Console.SetCursorPosition(itemPos[0], itemPos[1]);
                 Console.Write(" ");
                 Item Item = new();
                 score--;
-                Console.SetCursorPosition(8, 0);
-                Console.Write(score);
+                if(score < 0)
+                {
+                    Menu.renderFailscreen();
+                    return true;
+                }
+                else
+                {
+                    Console.SetCursorPosition(8, 0);
+                    Console.Write(score);
+                    return false;
 
-             }
+                }
+            }
+            return false;
         }
     }
 }

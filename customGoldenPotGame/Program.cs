@@ -6,10 +6,11 @@ namespace customGoldenPotGame
 
         static void Main(string[] args)
         {
-            /*
+            Console.ForegroundColor = ConsoleColor.White;
+            
             Menu menu = new Menu();
             menu.startMenu();
-            */
+            
             bool exit = false;
             GameManager gameManager = new();
             Map map = new();
@@ -24,8 +25,9 @@ namespace customGoldenPotGame
                     Player.movePlayerToNextPos();
                     Player.movement();
                     Item.renderItem();
-                    GameManager.detectItem();
+                    failed = GameManager.detectItem();
                 }
+                
         }
     }
 }
