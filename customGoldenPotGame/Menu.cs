@@ -8,7 +8,9 @@ namespace customGoldenPotGame
 {
     public class Menu
     {
-        public void startMenu()
+        ConsoleKeyInfo keyInfo = new ConsoleKeyInfo();
+
+        public char startMenu()
         {
             string divider = "___________________________________________________";
             Console.WriteLine("Willkommen bei meinem Spiel!");
@@ -24,12 +26,32 @@ namespace customGoldenPotGame
             Thread.Sleep(2500);
             Console.WriteLine();
             Console.WriteLine("Viel Spaß!");
+            Console.WriteLine("");
+            Console.WriteLine("");
             Console.WriteLine();
-            Console.WriteLine("Drücke eine beliebige Taste um fort zu fahren");
-            Console.ReadKey();
+            Console.WriteLine("Tippe \"S\" für das Spiel");
+            Console.WriteLine("Tippe \"L\" für das Labyrinth (Experimentell)");
+            keyInfo = Console.ReadKey(true);
+            char inputKey = keyInfo.KeyChar;
+            return inputKey;
         }
 
-        public static void renderFailscreen() {
+        public void mazeMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("!!Diese Funktion ist kein richtiges Spiel!!");
+            Thread.Sleep(300);
+            Console.WriteLine("Hier soll nur die Idee eines automatisierten Labyrinths gezeigt werden");
+            Thread.Sleep(1000);
+            Console.WriteLine("Du kannst versuchen dich durch das Labyrinth zu bewegen");
+            Thread.Sleep(500);
+            Console.WriteLine("Schließe alles mit der Taste \"l\" ");
+            Thread.Sleep(500);
+            Console.WriteLine("Du kannst ein neues Labyrinth mit der \"N\" Taste generieren");
+             
+        }
+
+        public static bool renderFailscreen() {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
             for (int i = 0; i < GameManager.Height; i++)
@@ -38,9 +60,26 @@ namespace customGoldenPotGame
             }
             Thread.Sleep(500);
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.White; 
-            Console.Write("Versuch's nochmal");
-            Console.ReadKey();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Spiele eine weitere Runde indem du die \"a\" Taste drückst");
+            Thread.Sleep(500);
+            Console.WriteLine("Verlasse das Spiel mit der \"L\" Taste");
+            ConsoleKeyInfo keyInfo = new ConsoleKeyInfo();
+            keyInfo = Console.ReadKey(true);
+            if (keyInfo.KeyChar == 's' || keyInfo.KeyChar == 'S')
+            {
+                return true;
+            }else if (keyInfo.KeyChar == 'l' || keyInfo.KeyChar == 'L')
+            {
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Keine valide Eingabe");
+                Console.WriteLine("Du musst nochmal spielen");
+                Thread.Sleep(1000);
+                    return true;
+            }
         }
         private static void renderFailPhrase()
         {

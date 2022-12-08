@@ -8,40 +8,62 @@ namespace customGoldenPotGame
             Console.ForegroundColor = ConsoleColor.White;
             
             Menu menu = new Menu();
-            menu.startMenu();
-            
-            bool exit = false;
+            char gametype = menu.startMenu();
+
             GameManager gameManager = new();
             Map map = new();
             Player Player = new();
-            Maze maze = new();
-            Item Item = new();
 
-            //map.renderMap();
-            //Item.renderItem();
-            maze.genMaze();
-            //Maze.testAssets();
-            Console.ReadKey();
+            bool regularGame;
 
-            bool failed = false;
-            while (!failed)
+            if (gametype == 'S' || gametype == 's')
             {
-               Player.movePlayerToNextPos();
-               Player.movement();
-               //Item.renderItem();
-               GameManager.detectItem();
+                regularGame = true;
+                Item Item = new();
+            }
+            else
+            {
+                menu.mazeMenu();
+                Maze maze = new();
+                while (true)
+                {
+                    regularGame = false;
+                    Console.Clear();
+                    Console.BufferHeight = 300;
+                    Console.WindowHeight = 50;
+                    Console.WindowWidth = 100;
+                    
+                    ConsoleKeyInfo keyInfo = new ConsoleKeyInfo();
+                    keyInfo = Console.ReadKey(true);
+                    if (keyInfo.KeyChar == 'l' || keyInfo.KeyChar == 'L')
+                    {
+                        break;
+                    }else if(keyInfo.KeyChar == 'n' || keyInfo.KeyChar == 'N')
+                    {
+                        maze.genMaze();
+                        Console.ReadKey();
+                    }
+                }
+
+                
             }
             
+            if (regularGame)
+            {
                 map.renderMap();
-                Item.renderItem();
+
                 bool failed = false;
                 while (!failed)
                 {
+                    Item.renderItem();
                     Player.movePlayerToNextPos();
                     Player.movement();
-                    Item.renderItem();
                     failed = GameManager.detectItem();
                 }
+                bool playAgain = Menu.renderFailscreen();
+                
+
+            }
               
         }
     }

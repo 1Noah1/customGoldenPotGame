@@ -52,12 +52,13 @@ namespace customGoldenPotGame
             
             int lastDir = 3;
             
-            for (int i = 0; i<5; i++) { 
+            for (int i = 0; i<8; i++) { 
                 int rndNum = random.Next(1,4);
                 if ( rndNum < 4)
                 {
 
-                    lastDir = decideOnRnd(lastDir,false, rndNum, random);
+                    try { lastDir = decideOnRnd(lastDir, false, rndNum, random); }
+                    catch { Console.Clear(); }
                     //debug when line is removed, replace with Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop); or similar
                     //Console.Write("B");
                     Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop);
@@ -377,7 +378,9 @@ namespace customGoldenPotGame
                     {
                         if (reverse)
                         {
-                            Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop -3);
+                            
+                                Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop - 3);
+                            
                         }
                         else
                         {
@@ -537,7 +540,7 @@ namespace customGoldenPotGame
                     }
                     else
                     {
-                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
                     }
 
                 }
@@ -570,8 +573,13 @@ namespace customGoldenPotGame
                     {
                         for (int i = 0; i < 2; i++)
                         {
-                            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop - 1);
-                            Console.Write(verLine);
+
+                                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop - 1);
+                                Console.Write(verLine);
+                            
+                            
+                            
+
                         }
                     }
                     else

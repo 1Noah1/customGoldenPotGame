@@ -10,8 +10,8 @@ namespace customGoldenPotGame
     public class Item
     {
         Random random = new();
-        public char item = 'I';
-        public char badItem = 'X';
+        public const char item = 'I';
+        public const char badItem = 'X';
         public Item()
         {
             //x
@@ -24,7 +24,7 @@ namespace customGoldenPotGame
             //y
             GameManager.badItemPos[1] = random.Next(GameManager.boundaries[3], GameManager.boundaries[2]);
         }
-        public void renderItem()
+        public static void renderItem()
         {
             GameManager.renderCharAtPos(GameManager.itemPos, item);
             GameManager.renderCharAtPos(GameManager.badItemPos, badItem);
