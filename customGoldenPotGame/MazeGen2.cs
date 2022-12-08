@@ -12,19 +12,32 @@ namespace customGoldenPotGame
         public static void genGrid()
         {
             Console.CursorVisible = true;
+            Console.SetCursorPosition(8, 3);
 
-            Console.SetCursorPosition(7, 3);
+
+            genVerLines();
+            genHoriLines();
+
+            Console.Write(GameManager.countedLength);
+            Console.ReadKey();
+        }
+        private static void genHoriLines()
+        {
+            
+        }
+        private static void genVerLines()
+        {
             int i = Console.CursorLeft;
-
-
-            while (i <= GameManager.Width){
+            while (i <= GameManager.Width)
+            {
                 // the x must be one lower than the actual 5 length i need
-                i += 6;
+                i += 5;
                 Console.SetCursorPosition(i, Console.CursorTop);
                 int j = 0;
-                while ( j <= GameManager.Height - 2){
+                while (j <= GameManager.Height - 2)
+                {
                     // -1 to compensate for automatic position advancement
-                    Console.SetCursorPosition(Console.CursorLeft-1, Console.CursorTop + 1);
+                    Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + 1);
                     Console.Write("|");
                     Thread.Sleep(10);
                     j++;
@@ -33,7 +46,7 @@ namespace customGoldenPotGame
 
                 i++;
             }
-            Console.Write(GameManager.countedLength);
+
         }
 
     }
