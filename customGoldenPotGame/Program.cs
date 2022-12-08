@@ -8,14 +8,20 @@ namespace customGoldenPotGame
             Console.ForegroundColor = ConsoleColor.White;
             
             Menu menu = new Menu();
-            char gametype = menu.startMenu();
+            //char gametype = menu.startMenu();
 
             GameManager gameManager = new();
             Map map = new();
             Player Player = new();
 
+            map.renderMap();
+            MazeGen2.genGrid();
+            
+            
+            
+            /*
             bool regularGame;
-
+            
             if (gametype == 'S' || gametype == 's')
             {
                 regularGame = true;
@@ -61,10 +67,9 @@ namespace customGoldenPotGame
                     failed = GameManager.detectItem();
                 }
                 bool playAgain = Menu.renderFailscreen();
-                
-
             }
-              
+            */
+
         }
     }
 }

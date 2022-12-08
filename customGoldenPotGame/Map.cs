@@ -44,6 +44,7 @@ namespace customGoldenPotGame
             {
                 Console.SetCursorPosition(padding / 2 + i, GameManager.Height + padding / 4);
                 Console.Write(Maze.assets.horiPathLine);
+                GameManager.countedLength++;
             }
             // left
             for (int i = 1; i <= GameManager.Height; i++)
@@ -56,6 +57,7 @@ namespace customGoldenPotGame
             {
                 Console.SetCursorPosition(GameManager.Width + padding / 2, i + padding / 4);
                 Console.Write(Maze.assets.verLine);
+                
             }
         }
     }
