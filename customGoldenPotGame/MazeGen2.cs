@@ -12,7 +12,7 @@ namespace customGoldenPotGame
         public static void genGrid()
         {
             Console.CursorVisible = true;
-            Console.SetCursorPosition(8, 3);
+
 
 
             genVerLines();
@@ -27,6 +27,8 @@ namespace customGoldenPotGame
         }
         private static void genVerLines()
         {
+            Console.SetCursorPosition(7, 3);
+            Console.Write("I");
             int i = Console.CursorLeft;
             while (i <= GameManager.Width)
             {
