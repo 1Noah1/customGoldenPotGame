@@ -54,6 +54,7 @@ namespace customGoldenPotGame
             for (int i = 0; i <= length - 1; i++)
             {
                 Console.Write(verLine);
+                //debugging
                 Thread.Sleep(100);
                 Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop - 1);
             }
@@ -87,6 +88,36 @@ namespace customGoldenPotGame
         {
             Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop - 1);
             genXLine((length - 1) / 2);
+            Console.SetCursorPosition(Console.CursorLeft - 3, Console.CursorTop + 2);
+            genXLine(length - 1);
+            Console.SetCursorPosition(Console.CursorLeft - (length - 2), Console.CursorTop);
+            genYLine(length-1);
+            Console.SetCursorPosition(Console.CursorLeft + 2, Console.CursorTop + 1);
+            genYLine((length - 1) / 2);
+        }
+
+        public static void genCornerLeftAndBottom(int length)
+        {
+            genXPath((length - 1) / 2);
+            Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop -2);
+            genXLine((length - 1) / 2);
+            Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop + 3);
+            genYLine(length - 1);
+            Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop + (length - 2));
+            genYLine((length -1) /2);
+        }
+
+        public static void genCornerRightAndBottom(int length)
+        {
+            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop - 1);
+            genXLine((length - 1));
+            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + 2);
+            genXLine((length- 1) / 2);
+            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + 1);
+            genYLine((length - 1) / 2);
+            Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop + 1);
+            genYLine((length) - 1);
+
         }
     }
 }
