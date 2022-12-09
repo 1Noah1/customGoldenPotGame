@@ -62,11 +62,26 @@ namespace customGoldenPotGame
         }
         public static void genYPath(int length)
         {
+            // last Cursor Pos is top Right
+            // is written bottom to top left to Right
+
             Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + 2);
             genYLine(length);
             Console.SetCursorPosition(Console.CursorLeft + 2, Console.CursorTop + (length - 1));
             genYLine(length);
         }
 
+
+        public static void genCornerLeftAndTop(int length)
+        {
+            genXPath((length - 1) / 2);
+            Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop);
+            genXLine((length - 1) / 2);
+            Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop);
+            genYLine(length - 1);
+            Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop+ 1);
+            genYLine((length - 1) / 2);
+
+        }
     }
 }

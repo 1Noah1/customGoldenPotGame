@@ -51,7 +51,7 @@ namespace customGoldenPotGame
             Console.SetCursorPosition(middlePoints[0][0, 1], middlePoints[0][0, 2]);
             middlePoints[0][0, 0] = 1;
 
-            Gen2Assets.genYPath(testLength);
+            Gen2Assets.genCornerLeftAndTop(testLength);
             
         }
 
@@ -68,7 +68,7 @@ namespace customGoldenPotGame
 
                     Console.SetCursorPosition(middlePoints[i][j, 1], middlePoints[i][j, 2]);
                     
-                    Console.Write("*");
+                    Console.Write("O");
 
                 }
             }
