@@ -36,13 +36,13 @@ namespace customGoldenPotGame
 
             for (int i = 0; i < middlePoints.GetLength(0); i++)
             {
-                for (int j = 0; j < middlePoints[i].GetLength(1); j++)
+                for (int j = 0; j < middlePoints[i].GetLength(0); j++)
                 {
-                    // i'm probably itteration wrong thorugh the array
-                    Thread.Sleep(500);
-                    Console.SetCursorPosition(0, 0);
-                    Console.WriteLine(Convert.ToString(middlePoints[i][j, 1]) + " " +  Convert.ToString(middlePoints[i][j, 2]));
+                    Thread.Sleep(100);
+
+                    
                     Console.SetCursorPosition(middlePoints[i][j, 1], middlePoints[i][j, 2]);
+                    
                     Console.Write("*");
 
                 }
@@ -64,7 +64,7 @@ namespace customGoldenPotGame
 
 
             Console.Write("I");
-            Console.SetCursorPosition(Console.CursorLeft -4, Console.CursorTop +3);
+            Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop +3);
             
             for (int i = 0; i <= 4; i++)
             {
@@ -73,12 +73,13 @@ namespace customGoldenPotGame
                     //increase by Console.CursorLeft by one more after debuggin
                     middlePoints[i][j, 1] = Console.CursorLeft;
                     middlePoints[i][j, 2] = Console.CursorTop;
-                    Console.SetCursorPosition(Console.CursorLeft + 5, Console.CursorTop);
+                    // if assets are off on x achsis change Console.CursorLeft +6 to +5
+                    Console.SetCursorPosition(Console.CursorLeft + 6, Console.CursorTop);
                     //Console.Write("*");
-                    Thread.Sleep(100);
+                    Thread.Sleep(10);
 
                 }
-                Console.SetCursorPosition(Console.CursorLeft- (Console.CursorLeft - 4), Console.CursorTop + 6);
+                Console.SetCursorPosition(Console.CursorLeft- (Console.CursorLeft - 9), Console.CursorTop + 6);
             }
 
 
