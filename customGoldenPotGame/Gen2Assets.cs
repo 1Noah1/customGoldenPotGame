@@ -46,7 +46,7 @@ namespace customGoldenPotGame
         }
 
 
-        public void genYLine(int length)
+        public static void genYLine(int length)
         {
             // last Cursor Pos should be highest point ( last line if you count from bottom to top)
             // is written from bottom to top
@@ -54,9 +54,9 @@ namespace customGoldenPotGame
             for (int i = 0; i <= length - 1; i++)
             {
                 Console.Write(verLine);
-                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + 1);
+                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop - 1);
             }
-            Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
+            Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop + 1);
 
         }
 
