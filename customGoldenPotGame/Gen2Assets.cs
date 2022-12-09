@@ -83,5 +83,10 @@ namespace customGoldenPotGame
             genYLine((length - 1) / 2);
 
         }
+        public static void genCornerRightAndTop(int length)
+        {
+            Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop - 1);
+            genXLine((length - 1) / 2);
+        }
     }
 }
