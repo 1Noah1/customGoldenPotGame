@@ -54,12 +54,19 @@ namespace customGoldenPotGame
             for (int i = 0; i <= length - 1; i++)
             {
                 Console.Write(verLine);
+                Thread.Sleep(100);
                 Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop - 1);
             }
             Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop + 1);
 
         }
-
+        public static void genYPath(int length)
+        {
+            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + 2);
+            genYLine(length);
+            Console.SetCursorPosition(Console.CursorLeft + 2, Console.CursorTop + (length - 1));
+            genYLine(length);
+        }
 
     }
 }

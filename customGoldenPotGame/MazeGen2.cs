@@ -51,7 +51,7 @@ namespace customGoldenPotGame
             Console.SetCursorPosition(middlePoints[0][0, 1], middlePoints[0][0, 2]);
             middlePoints[0][0, 0] = 1;
 
-            Gen2Assets.genYLine(testLength);
+            Gen2Assets.genYPath(testLength);
             
         }
 
