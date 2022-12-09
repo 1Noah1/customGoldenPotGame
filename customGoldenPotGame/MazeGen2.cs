@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
@@ -9,11 +10,19 @@ using System.Threading.Tasks;
 
 namespace customGoldenPotGame
 {
-    // !!! when middle points of boxes are saved in array check if they are actually in the middle, because they might not be, because of weird offset to the right after character has been writtej
+
 
 
     internal class MazeGen2
     {
+        internal static int[][,] middlePoints = new int[5][,] {
+
+             new int[,] { { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
+             new int[,] { { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
+             new int[,] { { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
+             new int[,] { { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
+             new int[,] { { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
+            };
         public static void genGrid()
         {
             int startX = 7;
@@ -24,13 +33,29 @@ namespace customGoldenPotGame
             Console.SetCursorPosition(startX, startY);
             genHoriLines();
             Console.SetCursorPosition(startX, startY);
-            int [][,] middlePoints= genMiddlePoints();
-            printMiddlePoints(middlePoints);
+            genMiddlePoints();
+            printMiddlePoints();
             
-            Console.ReadKey();
+        }
+        private void placeAsset(int row, int column)
+        {
+            // this should place the asset and mark the assets as occupied (look at local documentation
         }
 
-        public static void printMiddlePoints(int[][,] middlePoints)
+        public static void testV2Assets()
+        {
+            int testLength = 5;
+
+
+            // should be middle of top left
+            Console.SetCursorPosition(middlePoints[0][0, 1], middlePoints[0][0, 2]);
+            middlePoints[0][0, 0] = 1;
+
+            Gen2Assets.genXPath(testLength);
+            
+        }
+
+        public static void printMiddlePoints()
         {
             // this functio draws only 3 points
 
@@ -38,9 +63,9 @@ namespace customGoldenPotGame
             {
                 for (int j = 0; j < middlePoints[i].GetLength(0); j++)
                 {
-                    Thread.Sleep(100);
+                    //debugging
+                    Thread.Sleep(10);
 
-                    
                     Console.SetCursorPosition(middlePoints[i][j, 1], middlePoints[i][j, 2]);
                     
                     Console.Write("*");
@@ -49,42 +74,31 @@ namespace customGoldenPotGame
             }
 
         }
-        private static int[][,] genMiddlePoints()
+        private static void genMiddlePoints()
         {
-            int[][,] middlePoints = new int[5][,] {
-
-             new int[,] { { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
-             new int[,] { { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
-             new int[,] { { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
-             new int[,] { { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
-             new int[,] { { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
-            };
-
-            // some offset is wrong (Console.CursorLeft needs to be increased)
+            // points are placed in array from top to bottom, left to right
 
 
+            //debugging
             Console.Write("I");
+
             Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop +3);
             
             for (int i = 0; i <= 4; i++)
             {
                 for (int j = 0; j <= 9; j++)
                 {
-                    //increase by Console.CursorLeft by one more after debuggin
+                    //increase by Console.CursorLeft by one more after printMiddlePoints
                     middlePoints[i][j, 1] = Console.CursorLeft;
                     middlePoints[i][j, 2] = Console.CursorTop;
-                    // if assets are off on x achsis change Console.CursorLeft +6 to +5
                     Console.SetCursorPosition(Console.CursorLeft + 6, Console.CursorTop);
-                    //Console.Write("*");
-                    Thread.Sleep(10);
+
+                    //debugging
+                    //Thread.Sleep(10);
 
                 }
                 Console.SetCursorPosition(Console.CursorLeft- (Console.CursorLeft - 9), Console.CursorTop + 6);
             }
-
-
-
-            return middlePoints;
         }
 
         
@@ -96,8 +110,6 @@ namespace customGoldenPotGame
             
             while (i <= GameManager.Height)
             {
-                int column = 0;
-                int row = 0;
                 i += 6;
                 Console.SetCursorPosition(Console.CursorLeft, i);
                 int j = 1;
@@ -105,29 +117,6 @@ namespace customGoldenPotGame
                 {
                     Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop);
                     Console.Write("-");
-                    //middle Points should be set by different Function
-
-                    // this sets the middle point
-                    /*if (j != 0)
-                     {
-                         if (j % 2 != 0 && j % 3 == 0)
-                         {
-                             // if middle is off take away -1 on CursorLeft
-                             Console.SetCursorPosition(Console.CursorLeft , Console.CursorTop - 3);
-                             Thread.Sleep(100);
-                             Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
-                             Console.Write("*");
-
-                             column++;
-                             Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop + 3);
-                         }
-                     }
-                    if(column == 5)
-                     {
-                         row++;
-                         column = 0;
-                     }
-                    */
                     j++;
                    
                 }
