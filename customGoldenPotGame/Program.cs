@@ -16,8 +16,8 @@ namespace customGoldenPotGame
 
             map.renderMap();
             MazeGen2.genGrid();
-            MazeGen2.testV2Assets();
-
+            //MazeGen2.testV2Assets();
+            MazeGen2.genMaze();
             Console.ReadKey();
             
             

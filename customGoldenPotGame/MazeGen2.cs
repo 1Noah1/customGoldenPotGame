@@ -15,6 +15,12 @@ namespace customGoldenPotGame
 
     internal class MazeGen2
     {
+        // this saves the last quadrant
+        // [0] = row, [1] = 1 column
+        private static int[] lastPos = { 4, 4 };
+
+        private static int stdLength = 5;
+
         internal static int[][,] middlePoints = new int[5][,] {
 
              new int[,] { { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
@@ -37,9 +43,41 @@ namespace customGoldenPotGame
             printMiddlePoints();
             
         }
-        private void placeAsset(int row, int column)
+        private static void placeAsset(int row, int column, string asset, int length)
         {
-            // this should place the asset and mark the assets as occupied (look at local documentation
+
+
+            Console.SetCursorPosition(middlePoints[row][column,1], middlePoints[row][column, 2]);
+            switch (asset)
+            {
+                case "genXPath":
+                    Gen2Assets.genXPath(length);
+                    break;
+                case "genYPath":
+                    Gen2Assets.genYPath(length);
+                    break;
+                case "genCornerLeftAndTop":
+                    Gen2Assets.genCornerLeftAndTop(length);
+                    break;
+                case "genCornerRightAndTop":
+                    Gen2Assets.genCornerRightAndTop(length);
+                    break;
+                case "genCornerLeftAndBottom":
+                    Gen2Assets.genCornerLeftAndBottom(length);
+                    break;
+                case "genCornerRightAndBottom":
+                    Gen2Assets.genCornerRightAndBottom(length);
+                    break;
+                default:
+                    Console.SetCursorPosition(0, 0);
+                    Console.WriteLine("Invalid switch case in placeAsset function (default case triggered)");
+                    break;
+
+
+            }
+
+            // marks the spots as occupied
+            middlePoints[row][column, 0] = 1;
         }
 
         public static void testV2Assets()
@@ -57,7 +95,6 @@ namespace customGoldenPotGame
 
         public static void printMiddlePoints()
         {
-            // this functio draws only 3 points
 
             for (int i = 0; i < middlePoints.GetLength(0); i++)
             {
@@ -72,8 +109,399 @@ namespace customGoldenPotGame
 
                 }
             }
+        }
+
+        public static void genMaze()
+        {
+            Random random = new();
+            int amountOfElements = 2;
+
+
+
+            // standard Position
+            placeAsset(lastPos[0], lastPos[1], "genYPath", stdLength);
+            int lastDir = 3;
+            for (int i = 0; i < amountOfElements; i++)
+            {
+                // chooses on of the 3 possible directions
+                int randomNum = random.Next(1, 4);
+                lastDir = decideOnNextElement(randomNum, lastDir);
+            }
+
+
+
 
         }
+        private static int decideOnNextElement(int nextDir, int lastDirection)
+        {
+            // first value in array ist direction second is the corner that will be used
+            int[] nextDirAndCorner = getDirectionByRelativeDirection(nextDir, lastDirection);
+
+            // Directions:
+            // 1 = left
+            // 2 = right
+            // 3 = up
+            // 4 = down
+            // Corners:
+            // 1 = LeftAndTop
+            // 2 = RightAndTop
+            // 3 = LeftAndBottom
+            // 4 = RightAndBottom
+
+
+            switch (nextDirAndCorner[0])
+            {
+                case 0: Console.SetCursorPosition(0, 0); Console.Write("This direction does not exist"); break;
+                
+                case 1:
+                    if(lastDirection != 4)
+                    {
+                        // check if next quadrant will be out of range of too close to border
+                        if (lastPos[0] > 0 && lastPos[1] > 0)
+                        {
+                            //next quadrant is straight left
+                            if (lastDirection == 1)
+                            {
+                                // no corner
+
+                                //check if quadrant is occupied
+                                if (middlePoints[lastPos[0]][lastPos[1] - 1,0] == 0){
+                                    //quadrant is free
+                                    placeAsset(lastPos[0], lastPos[1] - 1, "genXPath", stdLength);
+                                    
+                                    // lastPos[0] doesn't need a new value because the row doesn't change 
+                                    lastPos[1] = lastPos[1] - 1;
+                                    return nextDirAndCorner[0];
+                                }
+
+                            }else if (lastDirection == 3)
+                            {
+                                // corner needed (LeftAndBottom)
+                                // check if next Quadrant and quadrant for corner are free
+                                if (middlePoints[lastPos[0] - 1][lastPos[1] - 1, 0] == 0 && middlePoints[lastPos[0] - 1][lastPos[1], 0] == 0)
+                                {
+                                    // quadrants are both free
+                                    placeAsset(lastPos[0] - 1, lastPos[1], getCornerString(nextDirAndCorner[1]), stdLength);
+                                    placeAsset(lastPos[0] - 1, lastPos[1] - 1, "genXPath", stdLength);
+                                    lastPos[0] = lastPos[0] - 1;
+                                    lastPos[1] = lastPos[1] - 1;
+                                    return nextDirAndCorner[0];
+                                }
+                                else
+                                {
+                                    // One of the quadrant are already occupied
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // next Position would be out of range or too close to the border
+                        }
+                    }
+                    else
+                    {
+                        // is down case
+                        // check if next quadrant will be out of range
+                        if (lastPos[0] < 4 && lastPos[1] > 0)
+                        {
+                            // check if quadrant will be occupied or not
+                            if (middlePoints[lastPos[0] + 1][lastPos[1] - 1, 0] == 0)
+                            {
+                                // quadrant is free
+                                placeAsset(lastPos[0] + 1, lastPos[1], getCornerString(nextDirAndCorner[1]), stdLength);
+                                placeAsset(lastPos[0] + 1, lastPos[1] - 1, "genXPath", stdLength);
+                                lastPos[0] = lastPos[0] + 1;
+                                lastPos[1] = lastPos[1] - 1;
+                                return nextDirAndCorner[0];
+                            }
+                        }
+                    }
+                    break;
+                case 2:
+                    if (lastDirection != 4)
+                    {
+                        if (lastPos[0] > 0 && lastPos[1] < 9)
+                        {
+                            if (lastDirection == nextDirAndCorner[0])
+                            {
+                                // no corner
+                                //check if quadrant is occupied
+                                if (middlePoints[lastPos[0]][lastPos[1] + 1,0] == 0)
+                                {
+                                    // quadrant is free
+                                    placeAsset(lastPos[0], lastPos[1] + 1, "genXPath", stdLength);
+
+                                    lastPos[1] = lastPos[1] + 1;
+                                    return nextDirAndCorner[0];
+                                }
+                                else
+                                {
+                                    // quadrant is occupied
+                                }
+                            }else if (lastDirection == 3)
+                            {
+                                if (middlePoints[lastPos[0] - 1][lastPos[1],0] == 0 && middlePoints[lastPos[0]- 1][lastPos[1] + 1,0] == 0)
+                                {
+                                    // quadrants are both free
+
+                                    placeAsset(lastPos[0] - 1, lastPos[1], getCornerString(4), stdLength);
+                                    placeAsset(lastPos[0] - 1, lastPos[1] + 1, "genXPath", stdLength);
+                                    lastPos[0] = lastPos[0] - 1;
+                                    lastPos[1] = lastPos[1] + 1;
+                                    return nextDirAndCorner[0];
+                                }
+                                else
+                                {
+                                    // One or both quadrants are already occupied
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // next Position would be out of range or too close to border
+                        }
+                    }
+                    else
+                    {
+                        // down case
+
+                        // check if next quadrant will be out of range
+                        if (lastPos[0] < 4 && lastPos[1] < 9)
+                        {
+                            if (middlePoints[lastPos[0] + 1][lastPos[1],0] == 0 && middlePoints[lastPos[0]+ 1][lastPos[1] + 1, 0] == 0)
+                            {
+                                placeAsset(lastPos[0] + 1, lastPos[1], getCornerString(4), stdLength);
+                                placeAsset(lastPos[0] + 1, lastPos[1] + 1, "genXPath", stdLength);
+                                lastPos[0] = lastPos[0] + 1;
+                                lastPos[1] = lastPos[1] + 1;
+                                return nextDirAndCorner[0];
+                            }
+                            else
+                            {
+                                // Atleast one of the quadrants is already occupied
+                            }
+                        }
+                    }
+                    break;
+                case 3:
+                    
+                    if( lastDirection == 1)
+                    {
+                        // check if it will be out of range
+                        if (lastPos[0] > 1 && lastPos[1] > 0)
+                        {
+                            // check if quadrantes are occupied
+                            if (middlePoints[lastPos[0]][lastPos[1] - 1, 0] == 0 && middlePoints[lastPos[0] - 1][lastPos[1] - 1, 0] == 0)
+                            {
+                                // quadrant is free
+                                placeAsset(lastPos[0], lastPos[1] - 1, getCornerString(2), stdLength);
+                                placeAsset(lastPos[0] - 1, lastPos[1] - 1, "genYPath", stdLength);
+                                lastPos[0] = lastPos[0] - 1;
+                                lastPos[1] = lastPos[1] - 1;
+                                return nextDirAndCorner[0];
+                            }
+                            else
+                            {
+                                // quadrant is occupied
+                            }
+                        }
+                        else
+                        {
+                            // element would be out of range
+                        }
+                    }else if ( lastDirection == 2)
+                    {
+                        if (lastPos[0] > 1 && lastPos[1] < 9)
+                        {
+                            if (middlePoints[lastPos[0]][lastPos[1] + 1,0] == 0 && middlePoints[lastPos[0] - 1][lastPos[1] + 1, 0] == 0)
+                            {
+                                placeAsset(lastPos[0], lastPos[1] + 1, getCornerString(4), stdLength);
+                                placeAsset(lastPos[0] - 1, lastPos[1] + 1, "genYPath", stdLength);
+                                lastPos[0] = lastPos[0] - 1;
+                                lastPos[1] = lastPos[1] + 1;
+                                return nextDirAndCorner[0];
+                            }
+                            else
+                            {
+                                // Quadrants are occupied
+                            }
+                        }
+                        else
+                        {
+                            // item would be placed out of range
+                        }
+                    }else if (lastDirection == 3)
+                    {
+                        if (lastPos[0] > 1)
+                        {
+                            if (middlePoints[lastPos[0] - 1][lastPos[0],0] == 0)
+                            {
+                                // quadrant is free
+                                placeAsset(lastPos[0] - 1, lastPos[0], "genYPath", stdLength);
+                                lastPos[0] = lastPos[0] - 1;
+                                return nextDirAndCorner[0];
+                            }
+
+                        }
+                        else
+                        {
+                            // Item would be outside of range
+                        }
+                    }
+                    break;
+                case 4:
+                    if (lastDirection == 1)
+                    {
+                        if (lastPos[0] < 4 && lastPos[1] > 0)
+                        {
+                            if (middlePoints[lastPos[0]][lastPos[1] - 1, 0] == 0 && middlePoints[lastPos[0] + 1][lastPos[1] - 1, 0] == 0)
+                            {
+                                placeAsset(lastPos[0], lastPos[1] - 1, getCornerString(3), stdLength);
+                                placeAsset(lastPos[0] + 1, lastPos[1] - 1, "genYPath", stdLength);
+                                lastPos[0] = lastPos[0] + 1;
+                                lastPos[1] = lastPos[1] - 1;
+                                return nextDirAndCorner[0];
+                            }
+                            else
+                            {
+                                // Quadrant is be occupied
+                            }
+                        }
+                        else
+                        {
+                            // element would be placed out range
+                        }
+                    }
+                    else if (lastDirection == 2)
+                    {
+                        if (lastPos[0] < 4 && lastPos[1] < 9)
+                        {
+                            if (middlePoints[lastPos[0]][lastPos[1] + 1, 0] == 0 && middlePoints[lastPos[0] + 1][lastPos[1] + 1, 0] == 0)
+                            {
+                                // quadrant is free
+
+                                placeAsset(lastPos[0], lastPos[1] + 1, getCornerString(3), stdLength);
+                                placeAsset(lastPos[0] + 1, lastPos[1] + 1, "genYPath", stdLength);
+                                lastPos[0] = lastPos[0] + 1;
+                                lastPos[1] = lastPos[1] + 1;
+                                return nextDirAndCorner[0];
+                            }
+                            else
+                            {
+                                // quadrants are occupied
+                            }
+                        }
+                        else
+                        {
+                            // item is out of range
+                        }
+                    }
+                    break;
+            }
+
+
+
+            // must return last written non rel dir
+            
+        }
+
+        private static string getCornerString (int cornerValue)
+        {
+            switch (cornerValue) {
+                case 1:
+                    return "genCornerLeftAndTop";
+                case 2:
+                    return "genCornerRightAndTop";
+                case 3:
+                    return "genCornerLeftAndBottom";
+                case 4:
+                    return "genCornerRightAndBottom";
+            }
+            return "Switch case wasn't triggered";
+
+        }
+
+        private static int[] getDirectionByRelativeDirection(int nextDirection, int lastDirection)
+        {
+            // if not all code paths return values check the defaul option on the switch case
+            // might need to extend array by one more el to know if down or up
+            int[] dirAndCorner = new int[2];
+            if(nextDirection == 3)
+            {
+                dirAndCorner[0] = lastDirection;
+                dirAndCorner[1] = 0;
+                return dirAndCorner;
+
+            }
+            else
+            {
+                switch (lastDirection)
+                {
+                    case 1:
+                        switch (nextDirection)
+                        {
+                            case 1:
+                                dirAndCorner[0] = 4;
+                                dirAndCorner[1] = 4;
+                                return dirAndCorner;
+                            case 2:
+                                dirAndCorner[0] = 3;
+                                dirAndCorner[1] = 2;
+                                return dirAndCorner;
+                        }
+                        break;
+                    case 2:
+                        switch (nextDirection)
+                        {
+                            case 1:
+                                dirAndCorner[0] = 3;
+                                dirAndCorner[1] = 1;
+                                return dirAndCorner;
+                            case 2:
+                                dirAndCorner[0] = 4;
+                                dirAndCorner[1] = 3;
+                                return dirAndCorner;
+                        }
+                        break;
+                    case 3:
+                        switch (nextDirection)
+                        {
+                            case 1:
+                                dirAndCorner[0] = 1;
+                                dirAndCorner[1] = 3;
+                                return dirAndCorner;
+                            case 2:
+                                dirAndCorner[0] = 2;
+                                dirAndCorner[1] = 4;
+                                return dirAndCorner;
+                        }
+                        break;
+                    case 4:
+                        // might need to extend array by one more element to know if down or up
+                        switch (nextDirection)
+                        {
+                            case 1:
+                                dirAndCorner[0] = 2;
+                                dirAndCorner[1] = 2;
+                                return dirAndCorner;
+                            case 2:
+                                dirAndCorner[0] = 1;
+                                dirAndCorner[1] = 1;
+                                return dirAndCorner;
+                        }
+                        break;
+                        default:
+                            Console.SetCursorPosition(0, 0);
+                            Console.Write("getDirectionByRelativeDirectio default case");
+                        dirAndCorner[0] = 0;
+                        dirAndCorner[1] = 0;
+                        return dirAndCorner;
+                }
+            }
+            return dirAndCorner;
+        }
+
+
         private static void genMiddlePoints()
         {
             // points are placed in array from top to bottom, left to right
