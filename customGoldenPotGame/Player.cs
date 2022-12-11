@@ -27,7 +27,7 @@ namespace customGoldenPotGame
         public Player()
         {
             // main Player start Pos
-            x = GameManager.Height + 5;
+            x = GameManager.Height + 3;
             y = 32;
 
             GameManager.mainPlayerPos[0] = x;

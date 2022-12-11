@@ -30,7 +30,8 @@ namespace customGoldenPotGame
             Console.WriteLine("");
             Console.WriteLine();
             Console.WriteLine("Tippe \"S\" für das Spiel");
-            Console.WriteLine("Tippe \"L\" für das Labyrinth (Experimentell)");
+            Console.WriteLine("Tipper\"W\" für die zweite Version des Automatisch generieten Weges (Experimentell) ");
+            Console.WriteLine("Tippe \"L\" für den Automatisch generierten Weg (Experimentell)");
             keyInfo = Console.ReadKey(true);
             char inputKey = keyInfo.KeyChar;
             return inputKey;

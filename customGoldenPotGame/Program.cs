@@ -8,7 +8,7 @@ namespace customGoldenPotGame
             Console.ForegroundColor = ConsoleColor.White;
             
             Menu menu = new Menu();
-            //char gametype = menu.startMenu();
+            char gametype = menu.startMenu();
 
             GameManager gameManager = new();
             Map map = new();
@@ -22,12 +22,22 @@ namespace customGoldenPotGame
             
             
             
-            bool regularGame;
+            bool regularGame = false;
             
             if (gametype == 'S' || gametype == 's')
             {
                 regularGame = true;
                 Item Item = new();
+            } else if (gametype == 'W' || gametype == 'w'){
+                MazeGen2.genMaze();
+                bool failed = false;
+                while (!failed)
+                {
+                    Player.movePlayerToNextPos();
+                    Player.movement();
+                    failed = GameManager.detectItem();
+                }
+                bool playAgain = Menu.renderFailscreen();
             }
             else
             {
@@ -40,20 +50,20 @@ namespace customGoldenPotGame
                     Console.BufferHeight = 300;
                     Console.WindowHeight = 50;
                     Console.WindowWidth = 100;
-                    
+
                     ConsoleKeyInfo keyInfo = new ConsoleKeyInfo();
                     keyInfo = Console.ReadKey(true);
                     if (keyInfo.KeyChar == 'l' || keyInfo.KeyChar == 'L')
                     {
                         break;
-                    }else if(keyInfo.KeyChar == 'n' || keyInfo.KeyChar == 'N')
+                    } else if (keyInfo.KeyChar == 'n' || keyInfo.KeyChar == 'N')
                     {
                         maze.genMaze();
                         Console.ReadKey();
                     }
                 }
 
-                
+
             }
             
             if (regularGame)
@@ -70,7 +80,7 @@ namespace customGoldenPotGame
                 }
                 bool playAgain = Menu.renderFailscreen();
             }
-            */
+            
 
         }
     }
