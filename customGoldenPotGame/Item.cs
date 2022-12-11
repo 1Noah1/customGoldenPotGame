@@ -24,6 +24,13 @@ namespace customGoldenPotGame
             //y
             GameManager.badItemPos[1] = random.Next(GameManager.boundaries[3], GameManager.boundaries[2]);
         }
+
+        public Item(int X, int Y)
+        {
+            GameManager.itemPos[0] = X;
+            GameManager.itemPos[1] = Y;
+        }
+
         public static void renderItem()
         {
             GameManager.renderCharAtPos(GameManager.itemPos, item);

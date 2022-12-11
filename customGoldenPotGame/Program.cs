@@ -15,14 +15,13 @@ namespace customGoldenPotGame
             Player Player = new();
 
             map.renderMap();
-            MazeGen2.genGrid();
-            //MazeGen2.testV2Assets();
-            MazeGen2.genMaze();
-            Console.ReadKey();
+
+
+
             
             
             
-            /*
+            
             bool regularGame;
             
             if (gametype == 'S' || gametype == 's')

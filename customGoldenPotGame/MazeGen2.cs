@@ -21,6 +21,9 @@ namespace customGoldenPotGame
 
         private static int stdLength = 5;
 
+        private static int startX = 7;
+        private static int startY = 3;
+
         internal static int[][,] middlePoints = new int[5][,] {
 
              new int[,] { { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 },{ 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
@@ -31,8 +34,7 @@ namespace customGoldenPotGame
             };
         public static void genGrid()
         {
-            int startX = 7;
-            int startY = 3;
+
             Console.SetCursorPosition(startX, startY);
             Console.CursorVisible = true;
             genVerLines();
@@ -43,6 +45,27 @@ namespace customGoldenPotGame
             //printMiddlePoints();
             
         }
+
+        private static void placeItem()
+        {
+            for (int i = 0; i < middlePoints.GetLength(0); i++)
+            {
+                for (int j = 0; j < middlePoints[i].GetLength(0); j++)
+                {
+                    //debugging
+                    //Thread.Sleep(10);
+                    if (middlePoints[i][j,0] == 1)
+                    {
+                        Item item = new Item(middlePoints[i][j, 1], middlePoints[i][j, 2]);
+                        Item.renderItem();
+                    }
+
+
+                }
+            }
+        }
+
+
         private static void placeAsset(int row, int column, string asset, int length)
         {
 
@@ -115,7 +138,8 @@ namespace customGoldenPotGame
         {
             Random random = new();
             int amountOfElements = 10;
-
+            Console.SetCursorPosition(startX, startY);
+            genMiddlePoints();
 
 
             // standard Position
@@ -125,8 +149,33 @@ namespace customGoldenPotGame
             {
                 // chooses on of the 3 possible directions
                 int randomNum = random.Next(1, 4);
+                // debugging
+                Thread.Sleep(10);
                 lastDir = decideOnNextElement(randomNum, lastDir);
             }
+
+            Console.SetCursorPosition(middlePoints[lastPos[0]][lastPos[1], 1], middlePoints[lastPos[0]][lastPos[1], 2]);
+            switch (lastDir)
+            {
+                case 1:
+                    Console.SetCursorPosition(Console.CursorLeft - 3, Console.CursorTop);
+                    Console.Write("|");
+                    break;
+                case 2:
+                    Console.SetCursorPosition(Console.CursorLeft + 3, Console.CursorTop);
+                    Console.Write("|");
+                    break;
+                case 3:
+                    Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 3);
+                    Console.Write("-");
+                    break;
+                case 4:
+                    Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop + 3);
+                    Console.Write("-");
+                    break;
+
+            }
+            placeItem();
 
 
 
@@ -188,7 +237,7 @@ namespace customGoldenPotGame
                                 {
                                     // corner needed (LeftAndBottom)
                                     // check if next Quadrant and quadrant for corner are free
-                                    if (middlePoints[lastPos[0] - 1][lastPos[1] - 1, 0] == 0 && middlePoints[lastPos[0] - 1][lastPos[1], 0] == 0)
+                                    if (middlePoints[lastPos[0] - 1][lastPos[1] - 1, 0] == 0 && middlePoints[lastPos[0] - 1][lastPos[1], 0] == 0 && middlePoints[lastPos[0] - 1][lastPos[1] - 2,0] == 0)
                                     {
                                         // quadrants are both free
                                         placeAsset(lastPos[0] - 1, lastPos[1], getCornerString(nextDirAndCorner[1]), stdLength);
@@ -223,7 +272,7 @@ namespace customGoldenPotGame
                         if (lastPos[0] < 4 && lastPos[1] > 0)
                         {
                             // check if quadrant will be occupied or not
-                            if (middlePoints[lastPos[0] + 1][lastPos[1] - 1, 0] == 0 && middlePoints[lastPos[0] + 1][lastPos[1] - 2, 0] == 0)
+                            if (middlePoints[lastPos[0] + 1][lastPos[1] - 1, 0] == 0 && middlePoints[lastPos[0] + 1][lastPos[1],0] == 0 && middlePoints[lastPos[0] + 1][lastPos[1] - 2, 0] == 0)
                             {
                                 // quadrant is free
                                 placeAsset(lastPos[0] + 1, lastPos[1], getCornerString(nextDirAndCorner[1]), stdLength);
@@ -302,9 +351,9 @@ namespace customGoldenPotGame
                         // down case
 
                         // check if next quadrant will be out of range
-                        if (lastPos[0] < 4 && lastPos[1] < 9)
+                        if (lastPos[0] < 4 && lastPos[1] < 8)
                         {
-                            if (middlePoints[lastPos[0] + 1][lastPos[1],0] == 0 && middlePoints[lastPos[0]+ 1][lastPos[1] + 1, 0] == 0)
+                            if (middlePoints[lastPos[0] + 1][lastPos[1],0] == 0 && middlePoints[lastPos[0]+ 1][lastPos[1] + 1, 0] == 0 && middlePoints[lastPos[0] + 1][lastPos[1] + 2, 0] == 0)
                             {
                                 placeAsset(lastPos[0] + 1, lastPos[1], getCornerString(2), stdLength);
                                 placeAsset(lastPos[0] + 1, lastPos[1] + 1, "genXPath", stdLength);
@@ -325,7 +374,6 @@ namespace customGoldenPotGame
                     }
                     return lastDirection;
                 case 3:
-                    
                     if( lastDirection == 1)
                     {
                         // check if it will be out of range
@@ -405,7 +453,7 @@ namespace customGoldenPotGame
                     {
                         if (lastPos[0] < 3 && lastPos[1] > 0)
                         {
-                            if (middlePoints[lastPos[0]][lastPos[1] - 1, 0] == 0 && middlePoints[lastPos[0] + 1][lastPos[1] - 1, 0] == 0)
+                            if (middlePoints[lastPos[0]][lastPos[1] - 1, 0] == 0 && middlePoints[lastPos[0] + 1][lastPos[1] - 1, 0] == 0 && middlePoints[lastPos[0] +2][lastPos[1] - 1,0] == 0)
                             {
                                 placeAsset(lastPos[0], lastPos[1] - 1, getCornerString(4), stdLength);
                                 placeAsset(lastPos[0] + 1, lastPos[1] - 1, "genYPath", stdLength);
@@ -429,7 +477,7 @@ namespace customGoldenPotGame
                     {
                         if (lastPos[0] < 3 && lastPos[1] < 9)
                         {
-                            if (middlePoints[lastPos[0]][lastPos[1] + 1, 0] == 0 && middlePoints[lastPos[0] + 1][lastPos[1] + 1, 0] == 0)
+                            if (middlePoints[lastPos[0]][lastPos[1] + 1, 0] == 0 && middlePoints[lastPos[0] + 1][lastPos[1] + 1, 0] == 0 && middlePoints[lastPos[0] + 2][lastPos[1] + 1, 0] == 0)
                             {
                                 // quadrant is free
 

@@ -25,6 +25,9 @@ namespace customGoldenPotGame
             for (int i = 0; i <= length - 1; i++)
             {
                 Console.Write(horiPathLine);
+
+                //debugging
+                Thread.Sleep(10);
             }
             Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
 
@@ -54,9 +57,10 @@ namespace customGoldenPotGame
             for (int i = 0; i <= length - 1; i++)
             {
                 Console.Write(verLine);
-                //debugging
-                Thread.Sleep(100);
                 Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop - 1);
+
+                //debugging
+                Thread.Sleep(10);
             }
             Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop + 1);
 
