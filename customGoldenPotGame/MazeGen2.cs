@@ -430,7 +430,7 @@ namespace customGoldenPotGame
                             if (middlePoints[lastPos[0] - 1][lastPos[0],0] == 0 && middlePoints[lastPos[0] - 2][lastPos[0],0] == 0)
                             {
                                 // quadrant is free
-                                placeAsset(lastPos[0] - 1, lastPos[0], "genYPath", stdLength);
+                                placeAsset(lastPos[0] - 1, lastPos[1], "genYPath", stdLength);
                                 lastPos[0] = lastPos[0] - 1;
                                 return nextDirAndCorner[0];
                             }
@@ -633,10 +633,7 @@ namespace customGoldenPotGame
             // points are placed in array from top to bottom, left to right
 
 
-            //debugging
-            Console.Write("I");
-
-            Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop +3);
+            Console.SetCursorPosition(Console.CursorLeft + 2, Console.CursorTop +3);
             
             for (int i = 0; i <= 4; i++)
             {

@@ -520,7 +520,6 @@ namespace customGoldenPotGame
                     {
                         // works for pathLength of 2
                         // sometime Console.CursorLeft -3 is right other times Console.CursorLeft - 1 is correct
-                        float halfOne = 0.5f;
                         Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + ((pathLength / 2)+ pathLength));
                     }
 
