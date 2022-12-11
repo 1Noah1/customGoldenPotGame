@@ -19,6 +19,8 @@ namespace customGoldenPotGame
 
         private static int score;
 
+        public static int countedLength = 0;
+
         public GameManager()
         {
             score = 0;
