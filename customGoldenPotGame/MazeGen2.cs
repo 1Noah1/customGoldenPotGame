@@ -40,7 +40,7 @@ namespace customGoldenPotGame
             genHoriLines();
             Console.SetCursorPosition(startX, startY);
             genMiddlePoints();
-            printMiddlePoints();
+            //printMiddlePoints();
             
         }
         private static void placeAsset(int row, int column, string asset, int length)
@@ -101,7 +101,7 @@ namespace customGoldenPotGame
                 for (int j = 0; j < middlePoints[i].GetLength(0); j++)
                 {
                     //debugging
-                    Thread.Sleep(10);
+                    //Thread.Sleep(10);
 
                     Console.SetCursorPosition(middlePoints[i][j, 1], middlePoints[i][j, 2]);
                     
@@ -114,7 +114,7 @@ namespace customGoldenPotGame
         public static void genMaze()
         {
             Random random = new();
-            int amountOfElements = 2;
+            int amountOfElements = 10;
 
 
 
@@ -162,39 +162,57 @@ namespace customGoldenPotGame
                             //next quadrant is straight left
                             if (lastDirection == 1)
                             {
-                                // no corner
+                                if (lastPos[1] > 1)
+                                {
+                                    // no corner
 
-                                //check if quadrant is occupied
-                                if (middlePoints[lastPos[0]][lastPos[1] - 1,0] == 0){
-                                    //quadrant is free
-                                    placeAsset(lastPos[0], lastPos[1] - 1, "genXPath", stdLength);
-                                    
-                                    // lastPos[0] doesn't need a new value because the row doesn't change 
-                                    lastPos[1] = lastPos[1] - 1;
-                                    return nextDirAndCorner[0];
+                                    //check if quadrant is occupied
+                                    if (middlePoints[lastPos[0]][lastPos[1] - 1, 0] == 0)
+                                    {
+                                        //quadrant is free
+                                        placeAsset(lastPos[0], lastPos[1] - 1, "genXPath", stdLength);
+
+                                        // lastPos[0] doesn't need a new value because the row doesn't change 
+                                        lastPos[1] = lastPos[1] - 1;
+                                        return nextDirAndCorner[0];
+                                    }
+                                    else
+                                    {
+                                        return lastDirection;
+                                    }
                                 }
-
-                            }else if (lastDirection == 3)
+                            }
+                            else if (lastDirection == 3)
                             {
-                                // corner needed (LeftAndBottom)
-                                // check if next Quadrant and quadrant for corner are free
-                                if (middlePoints[lastPos[0] - 1][lastPos[1] - 1, 0] == 0 && middlePoints[lastPos[0] - 1][lastPos[1], 0] == 0)
+                                if (lastPos[0] > 0 && lastPos[1] > 1)
                                 {
-                                    // quadrants are both free
-                                    placeAsset(lastPos[0] - 1, lastPos[1], getCornerString(nextDirAndCorner[1]), stdLength);
-                                    placeAsset(lastPos[0] - 1, lastPos[1] - 1, "genXPath", stdLength);
-                                    lastPos[0] = lastPos[0] - 1;
-                                    lastPos[1] = lastPos[1] - 1;
-                                    return nextDirAndCorner[0];
+                                    // corner needed (LeftAndBottom)
+                                    // check if next Quadrant and quadrant for corner are free
+                                    if (middlePoints[lastPos[0] - 1][lastPos[1] - 1, 0] == 0 && middlePoints[lastPos[0] - 1][lastPos[1], 0] == 0)
+                                    {
+                                        // quadrants are both free
+                                        placeAsset(lastPos[0] - 1, lastPos[1], getCornerString(nextDirAndCorner[1]), stdLength);
+                                        placeAsset(lastPos[0] - 1, lastPos[1] - 1, "genXPath", stdLength);
+                                        lastPos[0] = lastPos[0] - 1;
+                                        lastPos[1] = lastPos[1] - 1;
+                                        return nextDirAndCorner[0];
+                                    }
+                                    else
+                                    {
+                                        return lastDirection;
+                                        // One of the quadrant are already occupied
+                                    }
+
                                 }
-                                else
-                                {
-                                    // One of the quadrant are already occupied
-                                }
+                            }
+                            else
+                            {
+                                return lastDirection;
                             }
                         }
                         else
                         {
+                            return lastDirection;
                             // next Position would be out of range or too close to the border
                         }
                     }
@@ -205,7 +223,7 @@ namespace customGoldenPotGame
                         if (lastPos[0] < 4 && lastPos[1] > 0)
                         {
                             // check if quadrant will be occupied or not
-                            if (middlePoints[lastPos[0] + 1][lastPos[1] - 1, 0] == 0)
+                            if (middlePoints[lastPos[0] + 1][lastPos[1] - 1, 0] == 0 && middlePoints[lastPos[0] + 1][lastPos[1] - 2, 0] == 0)
                             {
                                 // quadrant is free
                                 placeAsset(lastPos[0] + 1, lastPos[1], getCornerString(nextDirAndCorner[1]), stdLength);
@@ -214,9 +232,17 @@ namespace customGoldenPotGame
                                 lastPos[1] = lastPos[1] - 1;
                                 return nextDirAndCorner[0];
                             }
+                            else
+                            {
+                                return lastDirection;
+                            }
+                        }
+                        else
+                        {
+                            return lastDirection;
                         }
                     }
-                    break;
+                    return lastDirection;
                 case 2:
                     if (lastDirection != 4)
                     {
@@ -224,19 +250,23 @@ namespace customGoldenPotGame
                         {
                             if (lastDirection == nextDirAndCorner[0])
                             {
-                                // no corner
-                                //check if quadrant is occupied
-                                if (middlePoints[lastPos[0]][lastPos[1] + 1,0] == 0)
+                                if (lastPos[1] < 8)
                                 {
-                                    // quadrant is free
-                                    placeAsset(lastPos[0], lastPos[1] + 1, "genXPath", stdLength);
+                                    // no corner
+                                    //check if quadrant is occupied
+                                    if (middlePoints[lastPos[0]][lastPos[1] + 1, 0] == 0)
+                                    {
+                                        // quadrant is free
+                                        placeAsset(lastPos[0], lastPos[1] + 1, "genXPath", stdLength);
 
-                                    lastPos[1] = lastPos[1] + 1;
-                                    return nextDirAndCorner[0];
-                                }
-                                else
-                                {
-                                    // quadrant is occupied
+                                        lastPos[1] = lastPos[1] + 1;
+                                        return nextDirAndCorner[0];
+                                    }
+                                    else
+                                    {
+                                        return lastDirection;
+                                        // quadrant is occupied
+                                    }
                                 }
                             }else if (lastDirection == 3)
                             {
@@ -252,12 +282,18 @@ namespace customGoldenPotGame
                                 }
                                 else
                                 {
+                                    return lastDirection;
                                     // One or both quadrants are already occupied
                                 }
+                            }
+                            else
+                            {
+                                return lastDirection;
                             }
                         }
                         else
                         {
+                            return lastDirection;
                             // next Position would be out of range or too close to border
                         }
                     }
@@ -270,7 +306,7 @@ namespace customGoldenPotGame
                         {
                             if (middlePoints[lastPos[0] + 1][lastPos[1],0] == 0 && middlePoints[lastPos[0]+ 1][lastPos[1] + 1, 0] == 0)
                             {
-                                placeAsset(lastPos[0] + 1, lastPos[1], getCornerString(4), stdLength);
+                                placeAsset(lastPos[0] + 1, lastPos[1], getCornerString(2), stdLength);
                                 placeAsset(lastPos[0] + 1, lastPos[1] + 1, "genXPath", stdLength);
                                 lastPos[0] = lastPos[0] + 1;
                                 lastPos[1] = lastPos[1] + 1;
@@ -278,11 +314,16 @@ namespace customGoldenPotGame
                             }
                             else
                             {
+                                return lastDirection;
                                 // Atleast one of the quadrants is already occupied
                             }
                         }
+                        else
+                        {
+                            return lastDirection;
+                        }
                     }
-                    break;
+                    return lastDirection;
                 case 3:
                     
                     if( lastDirection == 1)
@@ -302,11 +343,13 @@ namespace customGoldenPotGame
                             }
                             else
                             {
+                                return lastDirection;
                                 // quadrant is occupied
                             }
                         }
                         else
                         {
+                            return lastDirection;
                             // element would be out of range
                         }
                     }else if ( lastDirection == 2)
@@ -315,7 +358,7 @@ namespace customGoldenPotGame
                         {
                             if (middlePoints[lastPos[0]][lastPos[1] + 1,0] == 0 && middlePoints[lastPos[0] - 1][lastPos[1] + 1, 0] == 0)
                             {
-                                placeAsset(lastPos[0], lastPos[1] + 1, getCornerString(4), stdLength);
+                                placeAsset(lastPos[0], lastPos[1] + 1, getCornerString(1), stdLength);
                                 placeAsset(lastPos[0] - 1, lastPos[1] + 1, "genYPath", stdLength);
                                 lastPos[0] = lastPos[0] - 1;
                                 lastPos[1] = lastPos[1] + 1;
@@ -323,40 +366,48 @@ namespace customGoldenPotGame
                             }
                             else
                             {
+                                return lastDirection;
                                 // Quadrants are occupied
                             }
                         }
                         else
                         {
+                            return lastDirection;
                             // item would be placed out of range
                         }
                     }else if (lastDirection == 3)
                     {
                         if (lastPos[0] > 1)
                         {
-                            if (middlePoints[lastPos[0] - 1][lastPos[0],0] == 0)
+                            if (middlePoints[lastPos[0] - 1][lastPos[0],0] == 0 && middlePoints[lastPos[0] - 2][lastPos[0],0] == 0)
                             {
                                 // quadrant is free
                                 placeAsset(lastPos[0] - 1, lastPos[0], "genYPath", stdLength);
                                 lastPos[0] = lastPos[0] - 1;
                                 return nextDirAndCorner[0];
                             }
+                            else
+                            {
+                                // qudrants are occupied
+                                return lastDirection;
+                            }
 
                         }
                         else
                         {
+                            return lastDirection;
                             // Item would be outside of range
                         }
                     }
-                    break;
+                    return lastDirection;
                 case 4:
                     if (lastDirection == 1)
                     {
-                        if (lastPos[0] < 4 && lastPos[1] > 0)
+                        if (lastPos[0] < 3 && lastPos[1] > 0)
                         {
                             if (middlePoints[lastPos[0]][lastPos[1] - 1, 0] == 0 && middlePoints[lastPos[0] + 1][lastPos[1] - 1, 0] == 0)
                             {
-                                placeAsset(lastPos[0], lastPos[1] - 1, getCornerString(3), stdLength);
+                                placeAsset(lastPos[0], lastPos[1] - 1, getCornerString(4), stdLength);
                                 placeAsset(lastPos[0] + 1, lastPos[1] - 1, "genYPath", stdLength);
                                 lastPos[0] = lastPos[0] + 1;
                                 lastPos[1] = lastPos[1] - 1;
@@ -364,17 +415,19 @@ namespace customGoldenPotGame
                             }
                             else
                             {
+                                return lastDirection;
                                 // Quadrant is be occupied
                             }
                         }
                         else
                         {
+                            return lastDirection;
                             // element would be placed out range
                         }
                     }
                     else if (lastDirection == 2)
                     {
-                        if (lastPos[0] < 4 && lastPos[1] < 9)
+                        if (lastPos[0] < 3 && lastPos[1] < 9)
                         {
                             if (middlePoints[lastPos[0]][lastPos[1] + 1, 0] == 0 && middlePoints[lastPos[0] + 1][lastPos[1] + 1, 0] == 0)
                             {
@@ -388,19 +441,49 @@ namespace customGoldenPotGame
                             }
                             else
                             {
+                                return lastDirection;
                                 // quadrants are occupied
                             }
                         }
                         else
                         {
+                            return lastDirection;
                             // item is out of range
                         }
                     }
-                    break;
+                    // maybe need to add case for lastdir and next dir being the same
+                    else if (lastDirection == 4)
+                    {
+                        if (lastPos[0] < 3 && lastPos[1] < 9)
+                        {
+                            if (middlePoints[lastPos[0] + 1][lastPos[1], 0] == 0 && middlePoints[lastPos[0] + 2][lastPos[1],0] == 0)
+                            {
+                                placeAsset(lastPos[0] + 1, lastPos[1], "genYPath", stdLength);
+                                lastPos[0] = lastPos[0] + 1;
+                                return nextDirAndCorner[0];
+                            }
+                            else
+                            {
+                                // quadrant is occupied
+                                return lastDirection;
+                            }
+                        }
+                        else
+                        {
+                            return lastDirection;
+                            // Next Pos is out of range
+                        }
+
+                    }
+                    else
+                    {
+                        return lastDirection;
+                    }
+
             }
 
 
-
+            return lastDirection;
             // must return last written non rel dir
             
         }
@@ -490,12 +573,7 @@ namespace customGoldenPotGame
                                 return dirAndCorner;
                         }
                         break;
-                        default:
-                            Console.SetCursorPosition(0, 0);
-                            Console.Write("getDirectionByRelativeDirectio default case");
-                        dirAndCorner[0] = 0;
-                        dirAndCorner[1] = 0;
-                        return dirAndCorner;
+
                 }
             }
             return dirAndCorner;
